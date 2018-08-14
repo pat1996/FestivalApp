@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainFestivalActivity"
+    tools:showIn="@layout/app_bar_main_festival">
+
+    <TextView
+        android:id="@+id/new_costs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="10dp"
+        android:text="@string/new_costs"
+        />
+    <EditText
+        android:id="@+id/name_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:inputType="text"
+        android:hint="@string/name"
+        />
+
+    <EditText
+        android:id="@+id/price_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:inputType="text"
+        android:hint="@string/price"
+        />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/button"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cost_overview"
+        android:textSize="25sp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/costs_overview"
+        />
+
+    <TextView
+        android:id="@+id/total_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total"
+        />
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FestivalApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="new_costs">New Cost</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="button">Button</string>
+    <string name="costs_overview">Cost Overview</string>
+    <string name="total">Total</string>
+    <string name="calculate_remaining_days_btn">Calculate remaining days</string>
+    <string name="enter_date_hint">Enter date Hint</string>
+</resources>
