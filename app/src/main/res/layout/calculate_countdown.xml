@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".MainFestivalActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/day_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/festival_day"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:maxLength="2"
+        />
+    <EditText
+        android:id="@+id/moth_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/festival_month"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:maxLength="2"
+        />
+    <EditText
+        android:id="@+id/year_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/festival_year"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:maxLength="4"
+        />
+
+</LinearLayout>
+
+<Button
+    android:id="@+id/start_countdown_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="50dp"
+    android:layout_marginStart="100dp"
+    android:layout_marginBottom="50dp"
+    android:text="@string/countdown_btn"/>
+
+<TextView
+    android:id="@+id/current_date"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    android:text="@string/current_date"
+    android:textAlignment="center"
+    android:textAllCaps="true"
+    android:textSize="30sp"
+
+    />
+
+    <TextView
+        android:id="@+id/countdown_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/countdown_view"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:textColor="@color/colorAccent"/>
+
+</LinearLayout>

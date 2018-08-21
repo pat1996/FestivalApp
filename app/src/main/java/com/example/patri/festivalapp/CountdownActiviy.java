@@ -13,9 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class CountdownActiviy extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView countdownView;
+    Button addCountdown;
+    private static final String noFestival = "0 Days";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +30,6 @@ public class CountdownActiviy extends AppCompatActivity
         setContentView(R.layout.activity_main_festival_countdown);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -34,6 +39,19 @@ public class CountdownActiviy extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        countdownView=(TextView)findViewById(R.id.countdown_view);
+        addCountdown=(Button)findViewById(R.id.new_countdown_btn);
+
+        addCountdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editCountdown();
+            }
+        });
+        Intent getDays = getIntent();
+        String remainingDays = getDays.getStringExtra("countingDays");
+        countdownView.setText(remainingDays);
     }
 
     @Override
@@ -96,4 +114,10 @@ public class CountdownActiviy extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void editCountdown(){
+        Intent startCountdownEdit = new Intent(this,CalculateCountdownActivity.class);
+        startActivity(startCountdownEdit);
+    }
+
 }
