@@ -2,9 +2,7 @@ package com.example.patri.festivalapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 public class CostActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,7 +76,7 @@ public class CostActivity extends AppCompatActivity
             this.finish();
             startActivity(i);
         } else if (id == R.id.nav_weather) {
-            Intent i = new Intent(this,Weather.class);
+            Intent i = new Intent(this,WeatherActivity.class);
             this.finish();
             startActivity(i);
         } else if (id == R.id.nav_countdown) {

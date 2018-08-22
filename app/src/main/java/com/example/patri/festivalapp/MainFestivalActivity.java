@@ -2,9 +2,6 @@ package com.example.patri.festivalapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -77,7 +74,7 @@ public class MainFestivalActivity extends AppCompatActivity
         if (id == R.id.nav_packlist) {
             startActivity(new Intent(this,PacklistActivity.class));
         } else if (id == R.id.nav_weather) {
-            startActivity(new Intent(this,Weather.class));
+            startActivity(new Intent(this,WeatherActivity.class));
         } else if (id == R.id.nav_countdown) {
             startActivity(new Intent(this,CountdownActiviy.class));
 
