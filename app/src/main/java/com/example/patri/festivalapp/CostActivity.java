@@ -80,7 +80,7 @@ public class CostActivity extends AppCompatActivity
             this.finish();
             startActivity(i);
         } else if (id == R.id.nav_countdown) {
-            Intent i = new Intent(this,CountdownActiviy.class);
+            Intent i = new Intent(this,CountdownActivity.class);
             this.finish();
             startActivity(i);
 

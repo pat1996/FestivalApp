@@ -69,7 +69,7 @@ public class CalculateCountdownActivity extends Activity {
 
         public void setCountdown (){
 
-            Intent intentCountdown= new Intent (getApplicationContext(),CountdownActiviy.class);
+            Intent intentCountdown= new Intent (getApplicationContext(),CountdownActivity.class);
             intentCountdown.putExtra("countingDays",getRemainingDays());
             this.finish();
             startActivity(intentCountdown);

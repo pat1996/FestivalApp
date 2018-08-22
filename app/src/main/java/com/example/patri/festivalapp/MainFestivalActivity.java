@@ -76,7 +76,7 @@ public class MainFestivalActivity extends AppCompatActivity
         } else if (id == R.id.nav_weather) {
             startActivity(new Intent(this,WeatherActivity.class));
         } else if (id == R.id.nav_countdown) {
-            startActivity(new Intent(this,CountdownActiviy.class));
+            startActivity(new Intent(this,CountdownActivity.class));
 
         } else if (id == R.id.nav_cost) {
             startActivity(new Intent(this,CostActivity.class));
