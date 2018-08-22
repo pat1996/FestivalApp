@@ -2,6 +2,7 @@ package com.example.patri.festivalapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,9 +11,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PacklistActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ImageButton packlist_task_button;
+    EditText packlist_taskname;
+    ListView list_view;
+    List<PacklistItem> packlistItems;
+    TodoListAdapter adapter;
+    File file;
+    XmlParser parser;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +57,63 @@ public class PacklistActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        packlist_task_button = (ImageButton)findViewById(R.id.packlist_task_button);
+        packlist_taskname = (EditText)findViewById(R.id.packlist_taskname);
+        list_view = (ListView)findViewById(R.id.list_view);
+        packlistItems = new ArrayList<PacklistItem>();
+        adapter = new TodoListAdapter(packlistItems,this);
+        list_view.setAdapter(adapter);
+        file = new File(Environment.getExternalStorageDirectory(), "tasks.xml");
+        parser = new XmlParser();
+        if (file.exists()) {
+            try {
+                packlistItems = parser.read(file);
+
+                if (packlistItems.isEmpty()) {
+                    file.delete();
+                    file.createNewFile();
+                }
+
+            } catch (XmlPullParserException ex) {
+                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        packlist_task_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if (packlist_taskname.getText().length() > 0){
+                    packlistItems.add(new PacklistItem(packlist_taskname.getText().toString(),false));
+                    adapter.notifyDataSetChanged();
+                    packlist_taskname.setText("");
+                }
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        try {
+            parser.write(packlistItems, file);
+        } catch (IOException ex) {
+            Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
