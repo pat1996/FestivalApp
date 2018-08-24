@@ -20,4 +20,5 @@
     <string name="festival_year">XX</string>
     <string name="countdown_btn">Start Counting Days</string>
     <string name="current_date">Current Date</string>
+    <string name="packlist">PAcklist</string>
 </resources>

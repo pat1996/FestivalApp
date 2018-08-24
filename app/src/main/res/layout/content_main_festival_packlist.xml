@@ -19,6 +19,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textAlignment="center"
         android:textSize="30sp"
+        android:textAllCaps="true"
+
         />
 
     <LinearLayout
