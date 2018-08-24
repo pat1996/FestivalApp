@@ -100,8 +100,6 @@ public class PacklistActivity extends AppCompatActivity
                 }
             }
         });
-
-
     }
 
     @Override
@@ -176,4 +174,5 @@ public class PacklistActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
