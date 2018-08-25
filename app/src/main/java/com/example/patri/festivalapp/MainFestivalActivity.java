@@ -31,6 +31,12 @@ public class MainFestivalActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Database db = new Database(this);
+        SettingsDB settings = new SettingsDB();
+        settings.setUsername("Hallo");
+        settings.setPassword("Hallo2");
+        db.insertIntoTable("Settings", settings);
     }
 
     @Override
