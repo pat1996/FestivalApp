@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "21.05.15_DB";
+    private static final String DB_NAME = "Festivalapp_DB";
     private static final int DB_VERSION = 1;
 
     private static final String SETTINGS_CREATE = "CREATE TABLE IF NOT EXISTS Settings (Username TEXT, Password TEXT)";
