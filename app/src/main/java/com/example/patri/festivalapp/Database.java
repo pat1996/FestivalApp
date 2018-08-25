@@ -28,11 +28,11 @@ public class Database extends SQLiteOpenHelper {
 
     public void insertIntoTable(String table, Object object) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues objectTable = convertObjectIntoSettings(object);
+        ContentValues objectTable = convertObjectIntoContenValues(object);
         db.insert(table, null, objectTable);
     }
 
-    private ContentValues convertObjectIntoSettings(Object object) {
+    private ContentValues convertObjectIntoContenValues(Object object) {
         ContentValues content = new ContentValues();
         switch (object.getClass().getSimpleName()) {
             case "SettingsDB":
