@@ -21,4 +21,8 @@
     <string name="countdown_btn">Start Counting Days</string>
     <string name="current_date">Current Date</string>
     <string name="packlist">PAcklist</string>
+    <string name="hint_content_text">Enter your cost here…</string>
+    <string name="hint_content_title">Enter the title of your cost…</string>
+    <string name="button_removeCost">Remove cost</string>
+    <string name="button_updateCost">Create/Update cost</string>
 </resources>

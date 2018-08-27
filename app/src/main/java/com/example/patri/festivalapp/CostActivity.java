@@ -10,9 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class CostActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MyListFragment.OnListItemSelectedListener,
+        ContentFragment.OnListItemChangedListener {
+
+    public static final int INTENT_ITEM_SELECTED_ID = 0;
+    public static final String INTENT_ITEM_SELECTED_NAME = "IntentForLoadingSelectedCost";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +30,7 @@ public class CostActivity extends AppCompatActivity
 
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_cost);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -31,6 +38,23 @@ public class CostActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Button newCostButton = (Button) findViewById(R.id.new_cost_button);
+        newCostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContentFragment contentFragment = (ContentFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
+                if(contentFragment != null){
+                    contentFragment.loadEmptyView();
+                }else {
+                    Toast.makeText(CostActivity.this, "Content Fragment not there, switching!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CostActivity.this,  ContentActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -91,5 +115,26 @@ public class CostActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onListItemChanged() {
+        MyListFragment listFragment = (MyListFragment) getFragmentManager().findFragmentById(R.id.fragment_list);
+        if(listFragment != null){
+            listFragment.populateList();
+        }
+    }
+
+    @Override
+    public void onListItemSelected(int id) {
+        ContentFragment contentFragment = (ContentFragment) getFragmentManager().findFragmentById(R.id.fragment_list);
+        if(contentFragment != null){
+            contentFragment.viewContent(id);
+        }else{
+            Toast.makeText(this, "Content Fragment not there, switching!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ContentActivity.class);
+            intent.putExtra(ContentFragment.ARG_ID,id);
+            startActivity(intent);
+        }
     }
 }
