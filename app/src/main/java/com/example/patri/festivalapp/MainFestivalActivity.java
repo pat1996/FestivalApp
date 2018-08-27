@@ -15,6 +15,12 @@ import android.view.MenuItem;
 public class MainFestivalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static Database db;
+
+    public static Database getDb() {
+        return db;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +42,16 @@ public class MainFestivalActivity extends AppCompatActivity
         //Database db = new Database(this); darf nur in der MainActivity stehen, um auf die Datenbank in anderen
         //zugreifen zu können wird die Getter-Methode verwendet
         Database db = new Database(this);
-        SettingsDB settings = new SettingsDB();
-        settings.setUsername("Hallo");
-        settings.setPassword("Hallo2");
-        db.insertIntoTable("Settings", settings);
-
-        Cursor res = db.selectAllFromTable("Settings");
-        res.moveToFirst();
-        System.out.print("Hallo: ");
-        System.out.println(res.getString(0));
+//        System.out.print("Hallo: ");
+//        SettingsDB settings = new SettingsDB();
+//        settings.setUsername("Hallo");
+//        settings.setPassword("Hallo2");
+//        db.insertIntoTable("Settings", settings);
+//
+//        Cursor res = db.selectAllFromTable("Settings");
+//        res.moveToFirst();
+//        System.out.print("Hallo: ");
+//        System.out.println(res.getString(0));
     }
 
     @Override
