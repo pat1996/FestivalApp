@@ -41,7 +41,7 @@ public class CalculateCountdownActivity extends Activity {
         }
 
         public int getFestivalMonth() {
-            enterMonth = (EditText) findViewById(R.id.moth_edit);
+            enterMonth = (EditText) findViewById(R.id.month_edit);
             int month = Integer.parseInt(enterMonth.getText().toString());
             return month;
         }

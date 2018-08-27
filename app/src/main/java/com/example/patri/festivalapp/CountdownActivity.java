@@ -49,7 +49,7 @@ public class CountdownActivity extends AppCompatActivity
         });
         Intent getDays = getIntent();
         String remainingDays = getDays.getStringExtra("countingDays");
-        countdownView.setText(remainingDays);
+        countdownView.setText(remainingDays+" "+"Days");
     }
 
     @Override

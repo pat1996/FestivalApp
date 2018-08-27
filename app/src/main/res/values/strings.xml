@@ -15,10 +15,10 @@
     <string name="add_new_countdown">Add A Festival</string>
     <string name="countdown_view">0 Days</string>
     <string name="festival">until the Festival</string>
-    <string name="festival_day">XX</string>
-    <string name="festival_month">XX</string>
-    <string name="festival_year">XX</string>
+    <string name="festival_day">Day</string>
+    <string name="festival_month">Month</string>
+    <string name="festival_year">Year</string>
     <string name="countdown_btn">Start Counting Days</string>
     <string name="current_date">Current Date</string>
-    <string name="packlist">PAcklist</string>
+    <string name="packlist">Packlist</string>
 </resources>
