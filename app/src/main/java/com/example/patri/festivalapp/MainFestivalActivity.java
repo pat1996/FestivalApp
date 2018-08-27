@@ -1,6 +1,7 @@
 package com.example.patri.festivalapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,7 +23,6 @@ public class MainFestivalActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -32,11 +32,19 @@ public class MainFestivalActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Beispiel für die Verwendung der Datenbank
+        //Database db = new Database(this); darf nur in der MainActivity stehen, um auf die Datenbank in anderen
+        //zugreifen zu können wird die Getter-Methode verwendet
         Database db = new Database(this);
         SettingsDB settings = new SettingsDB();
         settings.setUsername("Hallo");
         settings.setPassword("Hallo2");
         db.insertIntoTable("Settings", settings);
+
+        Cursor res = db.selectAllFromTable("Settings");
+        res.moveToFirst();
+        System.out.print("Hallo: ");
+        System.out.println(res.getString(0));
     }
 
     @Override
@@ -78,14 +86,14 @@ public class MainFestivalActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_packlist) {
-            startActivity(new Intent(this,PacklistActivity.class));
+            startActivity(new Intent(this, PacklistActivity.class));
         } else if (id == R.id.nav_weather) {
-            startActivity(new Intent(this,WeatherActivity.class));
+            startActivity(new Intent(this, WeatherActivity.class));
         } else if (id == R.id.nav_countdown) {
-            startActivity(new Intent(this,CountdownActivity.class));
+            startActivity(new Intent(this, CountdownActivity.class));
 
         } else if (id == R.id.nav_cost) {
-            startActivity(new Intent(this,CostActivity.class));
+            startActivity(new Intent(this, CostActivity.class));
 
 
         }
