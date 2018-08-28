@@ -40,6 +40,14 @@ public class CostActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            // Only switch when it was our own Intent (and not the one from the launch screen)
+            if (intent.getIntExtra(INTENT_ITEM_SELECTED_NAME, -1) == INTENT_ITEM_SELECTED_ID) {
+                onListItemSelected(intent.getIntExtra(ContentFragment.ARG_ID, -1));
+            }
+        }
+
         Button newCostButton = (Button) findViewById(R.id.new_cost_button);
         newCostButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +62,6 @@ public class CostActivity extends AppCompatActivity
                 }
             }
         });
-
     }
 
     @Override
@@ -128,13 +135,13 @@ public class CostActivity extends AppCompatActivity
 
     @Override
     public void onListItemSelected(int id) {
-        ContentFragment contentFragment = (ContentFragment) getFragmentManager().findFragmentById(R.id.fragment_list);
+        ContentFragment contentFragment = (ContentFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
         if(contentFragment != null){
             contentFragment.viewContent(id);
         }else{
             Toast.makeText(this, "Content Fragment not there, switching!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, ContentActivity.class);
-            intent.putExtra(ContentFragment.ARG_ID,id);
+            intent.putExtra(ContentFragment.ARG_ID, id);
             startActivity(intent);
         }
     }
