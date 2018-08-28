@@ -31,11 +31,7 @@ public class PacklistActivity extends AppCompatActivity
 
     ImageButton packlist_task_button;
     EditText packlist_taskname;
-    ListView list_view;
-    List<PacklistItem> packlistItems;
-    TodoListAdapter adapter;
-    File file;
-    XmlParser parser;
+
 
 
 
@@ -60,57 +56,15 @@ public class PacklistActivity extends AppCompatActivity
 
         packlist_task_button = (ImageButton)findViewById(R.id.packlist_task_button);
         packlist_taskname = (EditText)findViewById(R.id.packlist_taskname);
-        list_view = (ListView)findViewById(R.id.list_view);
-        packlistItems = new ArrayList<PacklistItem>();
-        adapter = new TodoListAdapter(packlistItems,this);
-        list_view.setAdapter(adapter);
-        file = new File(Environment.getExternalStorageDirectory(), "tasks.xml");
-        parser = new XmlParser();
-        if (file.exists()) {
-            try {
-                packlistItems = parser.read(file);
 
-                if (packlistItems.isEmpty()) {
-                    file.delete();
-                    file.createNewFile();
-                }
 
-            } catch (XmlPullParserException ex) {
-                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        packlist_task_button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                if (packlist_taskname.getText().length() > 0){
-                    packlistItems.add(new PacklistItem(packlist_taskname.getText().toString(),false));
-                    adapter.notifyDataSetChanged();
-                    packlist_taskname.setText("");
-                }
-            }
-        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        try {
-            parser.write(packlistItems, file);
-        } catch (IOException ex) {
-            Logger.getLogger(PacklistActivity.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
 
     }
 
