@@ -22,11 +22,13 @@ public class Database extends SQLiteOpenHelper {
     public static final String ID = "id";
 
     private static final String SETTINGS_CREATE = "CREATE TABLE IF NOT EXISTS Settings (Username TEXT, Password TEXT)";
-    private static final String COST_CREATE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-            COLUMN_NAME_NAME + " TEXT, " + COLUMN_NAME_PRICE + " REAL " + ");";
+    private static final String SETTINGS_SELECT = "SELECT * FROM Settings";
+    private static final String COST_CREATE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
+                                              " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                                              COLUMN_NAME_NAME + " TEXT, " +
+                                              COLUMN_NAME_PRICE + " REAL " + ");";
 
     private Context context;
-    private static final String SETTINGS_SELECT = "SELECT * FROM Settings";
 
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -116,23 +118,13 @@ public class Database extends SQLiteOpenHelper {
         cursor.moveToFirst();
         int rowCount = cursor.getCount();
 
-        System.out.println(" >>> rowCount = "+rowCount);
-        System.out.println(" >>> number of columns = "+cursor.getColumnNames().length);
-        System.out.println(" >>> getColumnName = "+(cursor.getColumnName(0)));
-        System.out.println(" >>> getColumnName = "+(cursor.getColumnName(1)));
-        System.out.println(" >>> getColumnName = "+(cursor.getColumnName(2)));
 
         ArrayList<Cost> costEntries = new ArrayList();
         for (int i = 0; i < rowCount; ++i) {
 
             int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(ID)));
-            System.out.println(" >>> ("+i+") _ID   = "+id);
-
             String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_NAME));
-            System.out.println(" >>> ("+i+") name  = "+name);
-
             double price = cursor.getDouble(cursor.getColumnIndex(String.valueOf(COLUMN_NAME_PRICE)));
-            System.out.println(" >>> ("+i+") price = "+price);
             Cost cost = new Cost (name, price);
             cost.setId(id);
             costEntries.add(cost);
