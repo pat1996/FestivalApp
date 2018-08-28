@@ -112,9 +112,10 @@ public class CostActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_cost);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
     }
 
     @Override
