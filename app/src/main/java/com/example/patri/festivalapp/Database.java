@@ -27,8 +27,13 @@ public class Database extends SQLiteOpenHelper {
                                               " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                                               COLUMN_NAME_NAME + " TEXT, " +
                                               COLUMN_NAME_PRICE + " REAL " + ");";
+    private static final String PACKINGLIST_CREATE = "CREATE TABLE IF NOT EXISTS PackingList(Packingthings TEXT)";
+
 
     private Context context;
+
+
+
 
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -40,6 +45,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(SETTINGS_CREATE);
         System.out.println("Database created");
         db.execSQL(COST_CREATE);
+        db.execSQL(PACKINGLIST_CREATE);
     }
 
 
