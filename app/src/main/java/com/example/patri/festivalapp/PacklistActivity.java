@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,9 @@ public class PacklistActivity extends AppCompatActivity
 
     ImageButton packlist_task_button;
     EditText packlist_taskname;
+    ArrayList<String> packing_list;
+
+    private static final String TAG = "PacklistActivity";
 
 
 
@@ -56,6 +60,16 @@ public class PacklistActivity extends AppCompatActivity
 
         packlist_task_button = (ImageButton)findViewById(R.id.packlist_task_button);
         packlist_taskname = (EditText)findViewById(R.id.packlist_taskname);
+        packing_list = new ArrayList<>();
+
+        packing_list.add("Dosenravioli");
+        packing_list.add("Grillfleisch");
+
+
+        for (int i = 0; i < packing_list.size(); i++) {
+            Log.d(TAG, "onCreate: packinglist" + packing_list.get(i));
+
+        }
 
 
     }
