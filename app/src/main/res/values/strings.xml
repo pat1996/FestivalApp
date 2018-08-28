@@ -11,6 +11,7 @@
     <string name="price">Price</string>
     <string name="button">Button</string>
     <string name="costs_overview">Cost Overview</string>
+    <string name="cost_overview">Kostenübersicht</string>
     <string name="total">Total</string>
     <string name="add_new_countdown">Add A Festival</string>
     <string name="countdown_view">0 Days</string>
@@ -25,4 +26,5 @@
     <string name="button_removeCost">Remove cost</string>
     <string name="button_updateCost">Create/Update cost</string>
     <string name="packlist">Packlist</string>
+    <string name="total_cost">Gesamtkosten</string>
 </resources>

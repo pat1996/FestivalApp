@@ -191,5 +191,4 @@ public class Database extends SQLiteOpenHelper {
         // Issue SQL statement.
         return db.delete(TABLE_NAME, selection, selectionArgs);
     }
-
 }
