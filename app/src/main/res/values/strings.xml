@@ -27,4 +27,7 @@
     <string name="button_updateCost">Ausgabe hinzufügen</string>
     <string name="packlist">Packlist</string>
     <string name="total_cost">Gesamtkosten</string>
+    <string name="total_price">Total Price</string>
+    <string name="Weather">Weatherinfo</string>
+    <string name="insert_a_city">insert a city</string>
 </resources>
