@@ -21,10 +21,10 @@
     <string name="festival_year">Year</string>
     <string name="countdown_btn">Start Counting Days</string>
     <string name="current_date">Current Date</string>
-    <string name="hint_content_text">Enter your cost here…</string>
-    <string name="hint_content_title">Enter the title of your cost…</string>
-    <string name="button_removeCost">Remove cost</string>
-    <string name="button_updateCost">Create/Update cost</string>
+    <string name="hint_content_text">Preis der neuen Ausgabe...</string>
+    <string name="hint_content_title">Name der neuen Ausgabe...</string>
+    <string name="button_removeCost">Eintrag löschen</string>
+    <string name="button_updateCost">Ausgabe hinzufügen</string>
     <string name="packlist">Packlist</string>
     <string name="total_cost">Gesamtkosten</string>
 </resources>
