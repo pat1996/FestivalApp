@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -59,6 +60,17 @@ public class MyListFragment extends ListFragment {
         }
         CostListItemAdapter costListItemAdapter = new CostListItemAdapter(getActivity(), R.layout.my_list_fragment, values);
         setListAdapter(costListItemAdapter);
+        calculateTotalCost();
+    }
+
+    public void calculateTotalCost() {
+        TextView tvTotalCost = (TextView) getView().findViewById(R.id.total_cost_price);
+        ArrayList<Cost> values = new Database(getActivity()).readCostData();
+        double totalCost = 0;
+        for (int i = 0; i < values.size(); ++i) {
+            totalCost = totalCost + i;
+        }
+        tvTotalCost.setText(String.valueOf(totalCost) + "€");
     }
 
 
