@@ -7,16 +7,54 @@
     android:orientation="vertical"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainFestivalActivity"
+    tools:context=".WeatherActivity"
     tools:showIn="@layout/app_bar_main_festival">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Weather"
+        android:text="@string/Weather"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textAllCaps="true"
+
+        />
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        >
+
+
+
+        <EditText
+            android:id="@+id/citysearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/insert_a_city"
+            />
+
+        <Button
+            android:id="@+id/weather_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Weather"
+            android:layout_gravity="center"
+
+            />
+</LinearLayout>
+
+
+
 
 </LinearLayout>

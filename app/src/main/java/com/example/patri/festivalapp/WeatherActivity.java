@@ -10,9 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class WeatherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    EditText citysearch;
+    Button weather_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,19 @@ public class WeatherActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        citysearch = (EditText)findViewById(R.id.citysearch);
+        weather_button = (Button)findViewById(R.id.weather_button);
+
+        weather_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editWeather();
+
+            }
+        });
+
+
     }
 
     @Override
@@ -91,5 +110,10 @@ public class WeatherActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void editWeather(){
+        Intent startWeatherEdit = new Intent(this,WeatherShow.class);
+        startActivity(startWeatherEdit);
     }
 }
