@@ -26,21 +26,14 @@ public class MainFestivalActivity extends AppCompatActivity
         return db;
     }
 
-
-
     public static double getTotalCost() {
         ArrayList<Cost> values;
-
-        //if (db==null) return 0.0;
-
         values = db.readCostData();
         double totalCost = 0.0;
         for (int i = 0; i < values.size(); i++) {
             totalCost = totalCost + values.get(i).getPrice();
         }
-
         totalCost=Math.round(totalCost*100.0)/100.0;
-
         return totalCost;
     }
     @Override
@@ -58,10 +51,7 @@ public class MainFestivalActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         TextView totalCostMain = (TextView) findViewById(R.id.total_cost_price_main);
-        //totalCostMain.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
         totalCostMain.setText(String.valueOf(getTotalCost()) + "€");
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

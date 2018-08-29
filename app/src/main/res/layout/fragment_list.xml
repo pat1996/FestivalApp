@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/new_cost_button"
             android:layout_below="@+id/content_main"
-            android:paddingRight="45dp"
+            android:paddingRight="50dp"
             android:text="@string/total_cost"
             android:textSize="15dp" />
 

@@ -64,26 +64,10 @@ public class MyListFragment extends ListFragment {
         refreshTotalCost();
     }
 
-
-/*    public double getTotalCost_fragment() {
-        ArrayList<Cost> values = new Database(getActivity()).readCostData();
-        double totalCost = 0.0;
-        for (int i = 0; i < values.size(); i++) {
-            totalCost = totalCost + values.get(i).getPrice(); // + values.get(i);
-        }
-
-        return totalCost;
-
-    }*/
-
-
     public void refreshTotalCost() {
         TextView tvTotalCost = (TextView) getView().findViewById(R.id.total_cost_price);
-        //tvTotalCost.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
         tvTotalCost.setText(String.valueOf(MainFestivalActivity.getTotalCost()) + "€");
-
     }
-
 
     @Override
     public void onResume() {
