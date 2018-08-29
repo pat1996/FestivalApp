@@ -10,6 +10,7 @@
         android:layout_above="@+id/content_main"
         android:layout_gravity="center"
         android:text="@string/cost_overview"
+        style="?android:attr/buttonBarButtonStyle"
         android:textSize="25dp" />
 
     <Space
@@ -18,8 +19,8 @@
 
     <ListView
         android:id="@android:id/list"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"/>
+        android:layout_width="340dp"
+        android:layout_height="wrap_content" />
 
     <Space
         android:layout_width="wrap_content"
@@ -36,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/new_cost_button"
             android:layout_below="@+id/content_main"
+            android:paddingRight="45dp"
             android:text="@string/total_cost"
             android:textSize="15dp" />
 
@@ -45,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/new_cost_button"
             android:layout_below="@+id/content_main"
-            android:paddingLeft="45dp"
-            android:text="Preis"
+            android:text="@string/total_price"
+            android:background="@color/colorAccent"
             android:textSize="15dp" />
 
     </LinearLayout>
