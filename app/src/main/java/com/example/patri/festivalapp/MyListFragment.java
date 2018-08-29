@@ -3,6 +3,7 @@ package com.example.patri.festivalapp;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,17 +61,27 @@ public class MyListFragment extends ListFragment {
         }
         CostListItemAdapter costListItemAdapter = new CostListItemAdapter(getActivity(), R.layout.my_list_fragment, values);
         setListAdapter(costListItemAdapter);
-        calculateTotalCost();
+        refreshTotalCost();
     }
 
-    public void calculateTotalCost() {
-        TextView tvTotalCost = (TextView) getView().findViewById(R.id.total_cost_price);
+
+/*    public double getTotalCost_fragment() {
         ArrayList<Cost> values = new Database(getActivity()).readCostData();
-        double totalCost = 0;
-        for (int i = 0; i < values.size(); ++i) {
-            totalCost = totalCost + i;
+        double totalCost = 0.0;
+        for (int i = 0; i < values.size(); i++) {
+            totalCost = totalCost + values.get(i).getPrice(); // + values.get(i);
         }
-        tvTotalCost.setText(String.valueOf(totalCost) + "€");
+
+        return totalCost;
+
+    }*/
+
+
+    public void refreshTotalCost() {
+        TextView tvTotalCost = (TextView) getView().findViewById(R.id.total_cost_price);
+        //tvTotalCost.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
+        tvTotalCost.setText(String.valueOf(MainFestivalActivity.getTotalCost()) + "€");
+
     }
 
 

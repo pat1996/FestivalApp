@@ -9,8 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainFestivalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,12 +26,41 @@ public class MainFestivalActivity extends AppCompatActivity
         return db;
     }
 
+
+
+    public static double getTotalCost() {
+        ArrayList<Cost> values;
+
+        //if (db==null) return 0.0;
+
+        values = db.readCostData();
+        double totalCost = 0.0;
+        for (int i = 0; i < values.size(); i++) {
+            totalCost = totalCost + values.get(i).getPrice();
+        }
+
+        totalCost=Math.round(totalCost*100.0)/100.0;
+
+        return totalCost;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Beispiel für die Verwendung der Datenbank
+        //Database db = new Database(this); darf nur in der MainActivity stehen, um auf die Datenbank in anderen
+        //zugreifen zu können wird die Getter-Methode verwendet
+
+        db = new Database(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_festival);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TextView totalCostMain = (TextView) findViewById(R.id.total_cost_price_main);
+        //totalCostMain.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
+        totalCostMain.setText(String.valueOf(getTotalCost()) + "€");
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -38,10 +72,7 @@ public class MainFestivalActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Beispiel für die Verwendung der Datenbank
-        //Database db = new Database(this); darf nur in der MainActivity stehen, um auf die Datenbank in anderen
-        //zugreifen zu können wird die Getter-Methode verwendet
-        Database db = new Database(this);
+
 //        System.out.print("Hallo: ");
 //        SettingsDB settings = new SettingsDB();
 //        settings.setUsername("Hallo");

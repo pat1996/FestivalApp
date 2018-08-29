@@ -28,4 +28,5 @@
     <string name="packlist">Packlist</string>
     <string name="total_cost">Gesamtkosten</string>
     <string name="total_price">Preis</string>
+    <string name="your_current_total_cost">Deine bisherigen Ausgaben betragen:</string>
 </resources>
