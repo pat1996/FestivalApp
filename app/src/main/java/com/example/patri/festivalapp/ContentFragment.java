@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
     private void emptyContentView() {
         EditText name = (EditText) getView().findViewById(R.id.content_name);
         EditText price = (EditText) getView().findViewById(R.id.content_price);
+        price.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
         name.setText("");
         price.setText("");
     }

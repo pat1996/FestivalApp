@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_content_text"
-        android:inputType="number"
+        android:inputType="number|numberDecimal"
         android:textSize="20dp" />
 
     <Space
