@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/new_cost_button"
             android:layout_below="@+id/content_main"
-            android:text="@string/total_price"
+            android:text="@string/total_cost_price"
             android:background="@color/colorAccent"
             android:textSize="15dp" />
 
