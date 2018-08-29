@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.os.Build.ID;
 
@@ -20,6 +21,8 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_NAME = "name";
     public static final String COLUMN_NAME_PRICE = "price";
     public static final String ID = "id";
+
+
 
     private static final String COST_CREATE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
             " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
@@ -34,6 +37,10 @@ public class Database extends SQLiteOpenHelper {
     private static final String PACKINGLIST_SELECT = "SELECT * FROM PackingList;";
     private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
+    private static final String COUNTDOWN_DATE = "CREATE TABLE IF NOT EXISTS CountdownTable" + "(festivalDate CALENDAR)";
+
+
+
     private Context context;
 
     public Database(Context context) {
@@ -45,6 +52,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(COST_CREATE);
         db.execSQL(PACKINGLIST_CREATE);
+        db.execSQL(COUNTDOWN_DATE);
     }
 
 
@@ -69,6 +77,9 @@ public class Database extends SQLiteOpenHelper {
             case "PackingList":
                 res = db.rawQuery(PACKINGLIST_SELECT, null);
                 break;
+
+            case "CountdownTable":
+                res = db.rawQuery(COUNTDOWN_DATE,null);
         }
         return res;
     }
@@ -90,6 +101,10 @@ public class Database extends SQLiteOpenHelper {
                 PackingListItemDB packingListItem = (PackingListItemDB) object;
                 content.put("name", packingListItem.getName());
                 content.put("IsChecked", packingListItem.isChecked());
+
+            case "CountdownTable":
+                Calendar date = (Calendar) object;
+                content.put("festivalDate", String.valueOf(date.getInstance()));
         }
         return content;
     }

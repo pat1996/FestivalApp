@@ -53,18 +53,27 @@ public class CalculateCountdownActivity extends Activity {
             return year;
         }
 
-        public String getRemainingDays() {
+         public String getRemainingDays() {
             Calendar today = Calendar.getInstance();
+            Calendar festivalDate = getFestivalDate();
+
+            long diff = festivalDate.getTimeInMillis() - today.getTimeInMillis();
+             int days = (int) (diff / (1000 * 60 * 60 * 24));
+
+            return Integer.toString(days);
+        }
+
+
+        public Calendar getFestivalDate (){
+
             Calendar festival = Calendar.getInstance();
 
             festival.set(Calendar.YEAR, getFestivalYear());
             festival.set(Calendar.MONTH, getFestivalMonth()-1);
             festival.set(Calendar.DATE, getFestivalDay());
 
-            long diff = festival.getTimeInMillis() - today.getTimeInMillis();
-            int days = (int) (diff / (1000 * 60 * 60 * 24));
+            return festival;
 
-            return Integer.toString(days);
         }
 
         public void setCountdown (){
