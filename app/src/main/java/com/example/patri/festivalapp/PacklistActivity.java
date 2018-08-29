@@ -32,12 +32,9 @@ public class PacklistActivity extends AppCompatActivity
 
     ImageButton packlist_task_button;
     EditText packlist_taskname;
-    ArrayList<String> packing_list;
+    ArrayList<PackingListItemDB> packing_list;
 
     private static final String TAG = "PacklistActivity";
-
-
-
 
 
     @Override
@@ -46,7 +43,6 @@ public class PacklistActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_festival_packlist);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -58,17 +54,27 @@ public class PacklistActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        packlist_task_button = (ImageButton)findViewById(R.id.packlist_task_button);
-        packlist_taskname = (EditText)findViewById(R.id.packlist_taskname);
+        packlist_task_button = (ImageButton) findViewById(R.id.packlist_task_button);
+        packlist_taskname = (EditText) findViewById(R.id.packlist_taskname);
         packing_list = new ArrayList<>();
 
-        packing_list.add("Dosenravioli");
-        packing_list.add("Grillfleisch");
+        PackingListItemDB item1 = new PackingListItemDB();
+        item1.setName("Dosenravioli");
+        item1.setChecked(true);
 
+        PackingListItemDB item2 = new PackingListItemDB();
+        item2.setName("Grillfleisch");
+        item2.setChecked(true);
+
+
+        packing_list.add(item1);
+        packing_list.add(item2);
+
+        Database db = MainFestivalActivity.getDb();
 
         for (int i = 0; i < packing_list.size(); i++) {
-            Log.d(TAG, "onCreate: packinglist" + packing_list.get(i));
-
+//            Log.d(TAG, "onCreate: packinglist" + packing_list.get(i));
+            db.insertIntoTable("PackingList", packing_list.get(i));
         }
 
 
@@ -77,7 +83,6 @@ public class PacklistActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-
 
 
     }
@@ -123,16 +128,16 @@ public class PacklistActivity extends AppCompatActivity
         if (id == R.id.nav_packlist) {
 
         } else if (id == R.id.nav_weather) {
-            Intent i = new Intent(this,WeatherActivity.class);
+            Intent i = new Intent(this, WeatherActivity.class);
             this.finish();
             startActivity(i);
         } else if (id == R.id.nav_countdown) {
-            Intent i = new Intent(this,CountdownActivity.class);
+            Intent i = new Intent(this, CountdownActivity.class);
             this.finish();
             startActivity(i);
 
         } else if (id == R.id.nav_cost) {
-            Intent i = new Intent(this,CostActivity.class);
+            Intent i = new Intent(this, CostActivity.class);
             this.finish();
             startActivity(i);
 

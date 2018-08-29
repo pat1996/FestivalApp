@@ -21,19 +21,20 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_PRICE = "price";
     public static final String ID = "id";
 
-    private static final String SETTINGS_CREATE = "CREATE TABLE IF NOT EXISTS Settings (Username TEXT, Password TEXT)";
-    private static final String SETTINGS_SELECT = "SELECT * FROM Settings";
     private static final String COST_CREATE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
-                                              " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                                              COLUMN_NAME_NAME + " TEXT, " +
-                                              COLUMN_NAME_PRICE + " REAL " + ");";
-    private static final String PACKINGLIST_CREATE = "CREATE TABLE IF NOT EXISTS PackingList(Packingthings TEXT)";
-
+            " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COLUMN_NAME_NAME + " TEXT, " +
+            COLUMN_NAME_PRICE + " REAL " + ");";
+    private static final String COST_SELECT = "SELECT * FROM Cost;";
+    private static final String COST_DROP = "DROP TABLE IF EXISTS Cost;";
+    private static final String PACKINGLIST_CREATE = "CREATE TABLE IF NOT EXISTS PackingList" +
+            "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "Name TEXT," +
+            "IsChecked BOOLEAN);";
+    private static final String PACKINGLIST_SELECT = "SELECT * FROM PackingList;";
+    private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
     private Context context;
-
-
-
 
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -42,8 +43,6 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SETTINGS_CREATE);
-        System.out.println("Database created");
         db.execSQL(COST_CREATE);
         db.execSQL(PACKINGLIST_CREATE);
     }
@@ -57,16 +56,18 @@ public class Database extends SQLiteOpenHelper {
     public void insertIntoTable(String table, Object object) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues objectTable = convertObjectIntoContenValues(object);
-        long insert = db.insert(table, null, objectTable);
-        System.out.println("Object saved: " + insert);
+        db.insert(table, null, objectTable);
     }
 
     public Cursor selectAllFromTable(String table) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = null;
         switch (table) {
-            case "Settings":
-                res = db.rawQuery(SETTINGS_SELECT, null);
+            case "Cost":
+                res = db.rawQuery(COST_SELECT, null);
+                break;
+            case "PackingList":
+                res = db.rawQuery(PACKINGLIST_SELECT, null);
                 break;
         }
         return res;
@@ -81,11 +82,14 @@ public class Database extends SQLiteOpenHelper {
     private ContentValues convertObjectIntoContenValues(Object object) {
         ContentValues content = new ContentValues();
         switch (object.getClass().getSimpleName()) {
-            case "SettingsDB":
-                SettingsDB settings = (SettingsDB) object;
-                content.put("Username", settings.getUsername());
-                content.put("Password", settings.getPassword());
-                break;
+            case "Cost":
+                Cost cost = (Cost) object;
+                content.put("name", cost.getName());
+                content.put("price", cost.getPrice());
+            case "PacktingListItemDB":
+                PackingListItemDB packingListItem = (PackingListItemDB) object;
+                content.put("name", packingListItem.getName());
+                content.put("IsChecked", packingListItem.isChecked());
         }
         return content;
     }
@@ -100,7 +104,7 @@ public class Database extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public ArrayList<Cost> readCostData () {
+    public ArrayList<Cost> readCostData() {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();
         // Define a projection that specifies which columns from the database
@@ -131,7 +135,7 @@ public class Database extends SQLiteOpenHelper {
             int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(ID)));
             String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_NAME));
             double price = cursor.getDouble(cursor.getColumnIndex(String.valueOf(COLUMN_NAME_PRICE)));
-            Cost cost = new Cost (name, price);
+            Cost cost = new Cost(name, price);
             cost.setId(id);
             costEntries.add(cost);
             cursor.moveToNext();
