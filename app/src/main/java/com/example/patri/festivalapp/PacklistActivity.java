@@ -135,7 +135,6 @@ public class PacklistActivity extends AppCompatActivity
         db.insertIntoTable("PackingList", item);
 
         packlist_taskname.setText("");
-        readDatabase();
     }
 
     private void readDatabase(){
