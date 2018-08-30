@@ -58,6 +58,15 @@ public class PacklistActivity extends AppCompatActivity
         packlist_taskname = (EditText) findViewById(R.id.packlist_taskname);
         packing_list = new ArrayList<>();
 
+        packlist_task_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if (packlist_taskname.getText().length() >0){
+                   packing_list.add(new PackingListItemDB());
+               }
+            }
+        });
+
         PackingListItemDB item1 = new PackingListItemDB();
         item1.setName("Dosenravioli");
         item1.setChecked(true);
