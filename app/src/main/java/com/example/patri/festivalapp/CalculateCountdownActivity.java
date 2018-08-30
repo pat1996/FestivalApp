@@ -1,6 +1,7 @@
 package com.example.patri.festivalapp;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class CalculateCountdownActivity extends Activity {
             @Override
             public void onClick(View v) {
                 setCountdown();
+                setWidget();
             }
         });
 
@@ -95,6 +97,15 @@ public class CalculateCountdownActivity extends Activity {
         this.finish();
         startActivity(intentCountdown);
     }
+
+    public void setWidget(){
+
+        Intent widget = new Intent(getApplicationContext(),CountdownWidgetActivity.class);
+        widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
+        widget.putExtra("countdownWidget", "Nur noch "+getRemainingDays()+" Tage bis zum Festival");
+        sendBroadcast(widget);
+    }
+
 
 }
 
