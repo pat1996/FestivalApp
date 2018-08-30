@@ -1,8 +1,9 @@
 package com.example.patri.festivalapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,19 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PacklistActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,195 +48,19 @@ public class PacklistActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        packlist_task_button = (ImageButton) findViewById(R.id.packlist_task_button);
         packlist_taskname = (EditText) findViewById(R.id.packlist_taskname);
-        packing_list = new ArrayList<>();
-
+        packlist_task_button = (ImageButton) findViewById(R.id.packlist_task_button);
         packlist_task_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (packlist_taskname.getText().length() >0){
-                   packing_list.add(new PackingListItemDB());
-               }
+                saveOnButton();
             }
         });
-
-        PackingListItemDB item1 = new PackingListItemDB();
-        item1.setName("Dosenravioli");
-        item1.setChecked(true);
-
-        PackingListItemDB item2 = new PackingListItemDB();
-        item2.setName("Grillfleisch");
-        item2.setChecked(true);
-
-        PackingListItemDB item3 = new PackingListItemDB();
-        item1.setName("Kekse");
-        item1.setChecked(true);
-
-        PackingListItemDB item4 = new PackingListItemDB();
-        item1.setName("Muesli");
-        item1.setChecked(true);
-
-        PackingListItemDB item5 = new PackingListItemDB();
-        item1.setName("Milchbroetchen");
-        item1.setChecked(true);
-
-        PackingListItemDB item6 = new PackingListItemDB();
-        item1.setName("Nutella");
-        item1.setChecked(true);
-
-        PackingListItemDB item7 = new PackingListItemDB();
-        item1.setName("Salzstangen");
-        item1.setChecked(true);
-
-        PackingListItemDB item8 = new PackingListItemDB();
-        item1.setName("Erdnuesse");
-        item1.setChecked(true);
-
-
-        PackingListItemDB item9 = new PackingListItemDB();
-        item1.setName("Milch");
-        item1.setChecked(true);
-
-        PackingListItemDB item10 = new PackingListItemDB();
-        item1.setName("Asbach");
-        item1.setChecked(true);
-        PackingListItemDB item11 = new PackingListItemDB();
-        item1.setName("Cola");
-        item1.setChecked(true);
-        PackingListItemDB item12 = new PackingListItemDB();
-        item1.setName("Bier");
-        item1.setChecked(true);
-        PackingListItemDB item13 = new PackingListItemDB();
-        item1.setName("Cider");
-        item1.setChecked(true);
-        PackingListItemDB item14 = new PackingListItemDB();
-        item1.setName("Wasser");
-        item1.setChecked(true);
-        PackingListItemDB item15 = new PackingListItemDB();
-        item1.setName("Hugo");
-        item1.setChecked(true);
-        PackingListItemDB item16 = new PackingListItemDB();
-        item1.setName("Sekt");
-        item1.setChecked(true);
-        PackingListItemDB item17 = new PackingListItemDB();
-        item1.setName("Duschgel");
-        item1.setChecked(true);
-        PackingListItemDB item18 = new PackingListItemDB();
-        item1.setName("Handtuecher");
-        item1.setChecked(true);
-
-        PackingListItemDB item19 = new PackingListItemDB();
-        item1.setName("Zahnpasta");
-        item1.setChecked(true);
-        PackingListItemDB item20 = new PackingListItemDB();
-        item1.setName("Zahnbuerste");
-        item1.setChecked(true);
-
-        PackingListItemDB item21 = new PackingListItemDB();
-        item1.setName("Hosen");
-        item1.setChecked(true);
-        PackingListItemDB item22 = new PackingListItemDB();
-        item1.setName("T-Shirts");
-        item1.setChecked(true);
-        PackingListItemDB item23 = new PackingListItemDB();
-        item1.setName("Socken");
-        item1.setChecked(true);
-        PackingListItemDB item24 = new PackingListItemDB();
-        item1.setName("Unterhosen");
-        item1.setChecked(true);
-        PackingListItemDB item25 = new PackingListItemDB();
-        item1.setName("Hut");
-        item1.setChecked(true);
-        PackingListItemDB item26 = new PackingListItemDB();
-        item1.setName("Sonnenbrille");
-        item1.setChecked(true);
-        PackingListItemDB item27 = new PackingListItemDB();
-        item1.setName("Campingstuhl");
-        item1.setChecked(true);
-        PackingListItemDB item28 = new PackingListItemDB();
-        item1.setName("Zelt");
-        item1.setChecked(true);
-        PackingListItemDB item29 = new PackingListItemDB();
-        item1.setName("Schlafsack");
-        item1.setChecked(true);
-        PackingListItemDB item30 = new PackingListItemDB();
-        item1.setName("Kissen");
-        item1.setChecked(true);
-        PackingListItemDB item31 = new PackingListItemDB();
-        item1.setName("Decke");
-        item1.setChecked(true);
-        PackingListItemDB item32 = new PackingListItemDB();
-        item1.setName("Gaskocher");
-        item1.setChecked(true);
-        PackingListItemDB item33 = new PackingListItemDB();
-        item1.setName("Messer");
-        item1.setChecked(true);
-        PackingListItemDB item34 = new PackingListItemDB();
-        item1.setName("Gabel");
-        item1.setChecked(true);
-        PackingListItemDB item35 = new PackingListItemDB();
-        item1.setName("Teller");
-        item1.setChecked(true);
-        PackingListItemDB item36 = new PackingListItemDB();
-        item1.setName("Powerbank");
-        item1.setChecked(true);
-        PackingListItemDB item37 = new PackingListItemDB();
-        item1.setName("Musikbox");
-        item1.setChecked(true);
-
-
-        packing_list.add(item1);
-        packing_list.add(item2);
-        packing_list.add(item3);
-        packing_list.add(item4);
-        packing_list.add(item5);
-        packing_list.add(item6);
-        packing_list.add(item7);
-        packing_list.add(item8);
-        packing_list.add(item9);
-        packing_list.add(item10);
-        packing_list.add(item11);
-        packing_list.add(item12);
-        packing_list.add(item13);
-        packing_list.add(item14);
-        packing_list.add(item15);
-        packing_list.add(item16);
-        packing_list.add(item17);
-        packing_list.add(item18);
-        packing_list.add(item19);
-        packing_list.add(item20);
-        packing_list.add(item21);
-        packing_list.add(item22);
-        packing_list.add(item23);
-        packing_list.add(item24);
-        packing_list.add(item25);
-        packing_list.add(item26);
-        packing_list.add(item27);
-        packing_list.add(item28);
-        packing_list.add(item29);
-        packing_list.add(item30);
-        packing_list.add(item31);
-        packing_list.add(item32);
-        packing_list.add(item33);
-        packing_list.add(item34);
-        packing_list.add(item35);
-        packing_list.add(item36);
-
-        Database db = MainFestivalActivity.getDb();
-
-        for (int i = 0; i < packing_list.size(); i++) {
-            db.insertIntoTable("PackingList", packing_list.get(i));
-        }
-
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-
     }
 
     @Override
@@ -304,6 +122,42 @@ public class PacklistActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void saveOnButton(){
+        PackingListItemDB item = new PackingListItemDB();
+        item.setName(packlist_taskname.getText().toString());
+        item.setChecked(true);
+
+        ListView lv = (ListView) findViewById(R.id.packlist_list_view);
+
+        Database db = MainFestivalActivity.getDb();
+        db.insertIntoTable("PackingList", item);
+
+        packlist_taskname.setText("");
+        readDatabase();
+    }
+
+    private void readDatabase(){
+        Database db = MainFestivalActivity.getDb();
+        Cursor res = db.selectAllFromTable("PackingList");
+
+        res.moveToFirst();
+
+        while(!res.isAfterLast())
+        {
+            PackingListItemDB item = new PackingListItemDB();
+            String name = res.getString(res.getColumnIndex("Name"));
+            boolean isChecked = false;
+            if(res.getInt(res.getColumnIndex("IsChecked")) == 1){
+                isChecked = true;
+            }
+
+            item.setName(name);
+            item.setChecked(isChecked);
+
+            res.moveToNext();
+        }
     }
 
 }

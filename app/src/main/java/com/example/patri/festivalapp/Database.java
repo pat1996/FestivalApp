@@ -10,8 +10,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static android.os.Build.ID;
-
 public class Database extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Festivalapp_DB.sqlite";
@@ -23,13 +21,13 @@ public class Database extends SQLiteOpenHelper {
     public static final String ID = "id";
 
 
-
     private static final String COST_CREATE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
             " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
             COLUMN_NAME_NAME + " TEXT, " +
             COLUMN_NAME_PRICE + " REAL " + ");";
     private static final String COST_SELECT = "SELECT * FROM Cost;";
     private static final String COST_DROP = "DROP TABLE IF EXISTS Cost;";
+
     private static final String PACKINGLIST_CREATE = "CREATE TABLE IF NOT EXISTS PackingList" +
             "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             "Name TEXT," +
@@ -37,8 +35,11 @@ public class Database extends SQLiteOpenHelper {
     private static final String PACKINGLIST_SELECT = "SELECT * FROM PackingList;";
     private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
-    private static final String COUNTDOWN_DATE = "CREATE TABLE IF NOT EXISTS CountdownTable" + "(festivalDate CALENDAR)";
-
+    private static final String COUNTDOWN_DATE = "CREATE TABLE IF NOT EXISTS CountdownTable" +
+            "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "festivalDate LONG)";
+    private static final String COUNTDOWN_SELECT = "SELECT * FROM CountdownTable";
+    private static final String COUNTDOWN_DROP = "DROP TABLE IF EXISTS CountdownTable";
 
 
     private Context context;
@@ -55,7 +56,6 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(COUNTDOWN_DATE);
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onCreate(db);
@@ -63,7 +63,7 @@ public class Database extends SQLiteOpenHelper {
 
     public void insertIntoTable(String table, Object object) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues objectTable = convertObjectIntoContenValues(object);
+        ContentValues objectTable = convertObjectIntoContentValues(object);
         db.insert(table, null, objectTable);
     }
 
@@ -77,9 +77,9 @@ public class Database extends SQLiteOpenHelper {
             case "PackingList":
                 res = db.rawQuery(PACKINGLIST_SELECT, null);
                 break;
-
             case "CountdownTable":
-                res = db.rawQuery(COUNTDOWN_DATE,null);
+                res = db.rawQuery(COUNTDOWN_DATE, null);
+                break;
         }
         return res;
     }
@@ -90,21 +90,23 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
-    private ContentValues convertObjectIntoContenValues(Object object) {
+    private ContentValues convertObjectIntoContentValues(Object object) {
         ContentValues content = new ContentValues();
         switch (object.getClass().getSimpleName()) {
             case "Cost":
                 Cost cost = (Cost) object;
                 content.put("name", cost.getName());
                 content.put("price", cost.getPrice());
-            case "PacktingListItemDB":
+                break;
+            case "PackingListItemDB":
                 PackingListItemDB packingListItem = (PackingListItemDB) object;
-                content.put("name", packingListItem.getName());
+                content.put("Name", packingListItem.getName());
                 content.put("IsChecked", packingListItem.isChecked());
-
+                break;
             case "CountdownTable":
                 Calendar date = (Calendar) object;
-                content.put("festivalDate", String.valueOf(date.getInstance()));
+                content.put("festivalDate", date.getTimeInMillis());
+                break;
         }
         return content;
     }
