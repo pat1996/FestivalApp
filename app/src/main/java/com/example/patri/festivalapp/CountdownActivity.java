@@ -1,6 +1,7 @@
 package com.example.patri.festivalapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,11 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class CountdownActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,8 +42,8 @@ public class CountdownActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        countdownView=(TextView)findViewById(R.id.countdown_view);
-        addCountdown=(Button)findViewById(R.id.new_countdown_btn);
+        countdownView = (TextView) findViewById(R.id.countdown_view);
+        addCountdown = (Button) findViewById(R.id.new_countdown_btn);
 
         addCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +51,11 @@ public class CountdownActivity extends AppCompatActivity
                 editCountdown();
             }
         });
-        Intent getDays = getIntent();
-        String remainingDays = getDays.getStringExtra("countingDays");
-        countdownView.setText(remainingDays+" "+"Days");
+//        Intent getDays = getIntent();
+//        String remainingDays = getDays.getStringExtra("countingDays");
+//        countdownView.setText(remainingDays+" "+"Days");
+
+        calculateRemainingDays();
     }
 
     @Override
@@ -91,18 +97,18 @@ public class CountdownActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_packlist) {
-            Intent i = new Intent(this,PacklistActivity.class);
+            Intent i = new Intent(this, PacklistActivity.class);
             this.finish();
             startActivity(i);
         } else if (id == R.id.nav_weather) {
-            Intent i = new Intent(this,WeatherActivity.class);
+            Intent i = new Intent(this, WeatherActivity.class);
             this.finish();
             startActivity(i);
         } else if (id == R.id.nav_countdown) {
 
 
         } else if (id == R.id.nav_cost) {
-            Intent i = new Intent(this,CostActivity.class);
+            Intent i = new Intent(this, CostActivity.class);
             this.finish();
             startActivity(i);
 
@@ -113,8 +119,29 @@ public class CountdownActivity extends AppCompatActivity
         return true;
     }
 
-    public void editCountdown(){
-        Intent startCountdownEdit = new Intent(this,CalculateCountdownActivity.class);
+    public void calculateRemainingDays() {
+        Database db = MainFestivalActivity.getDb();
+        Cursor res = db.selectAllFromTable("CountdownTable");
+
+        res.moveToFirst();
+        Log.e("Anzahl.", String.valueOf(res.getCount()));
+
+        int days = 0;
+        int index = res.getColumnIndex("festivalDate");
+
+        if (res.getCount() != 0) {
+            Calendar today = Calendar.getInstance();
+            Calendar festivalDate = Calendar.getInstance();
+            festivalDate.setTimeInMillis(res.getLong(index));
+
+            long diff = festivalDate.getTimeInMillis() - today.getTimeInMillis();
+            days = (int) (diff / (1000 * 60 * 60 * 24));
+        }
+        countdownView.setText(String.valueOf(days));
+    }
+
+    public void editCountdown() {
+        Intent startCountdownEdit = new Intent(this, CalculateCountdownActivity.class);
         startActivity(startCountdownEdit);
     }
 

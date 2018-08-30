@@ -35,9 +35,9 @@ public class Database extends SQLiteOpenHelper {
     private static final String PACKINGLIST_SELECT = "SELECT * FROM PackingList;";
     private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
-    private static final String COUNTDOWN_DATE = "CREATE TABLE IF NOT EXISTS CountdownTable" +
+    private static final String COUNTDOWN_CREATE = "CREATE TABLE IF NOT EXISTS CountdownTable" +
             "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            "festivalDate LONG)";
+            "festivalDate LONG);";
     private static final String COUNTDOWN_SELECT = "SELECT * FROM CountdownTable";
     private static final String COUNTDOWN_DROP = "DROP TABLE IF EXISTS CountdownTable";
 
@@ -53,7 +53,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(COST_CREATE);
         db.execSQL(PACKINGLIST_CREATE);
-        db.execSQL(COUNTDOWN_DATE);
+        db.execSQL(COUNTDOWN_CREATE);
     }
 
     @Override
@@ -64,6 +64,14 @@ public class Database extends SQLiteOpenHelper {
     public void insertIntoTable(String table, Object object) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues objectTable = convertObjectIntoContentValues(object);
+
+        //Damit immer nur ein Datum für das nächste Festival in der Tabelle steht
+        if(table.equals("CountdownTable"))
+        {
+            db.execSQL(COUNTDOWN_DROP);
+            db.execSQL(COUNTDOWN_CREATE);
+        }
+
         db.insert(table, null, objectTable);
     }
 
@@ -78,7 +86,7 @@ public class Database extends SQLiteOpenHelper {
                 res = db.rawQuery(PACKINGLIST_SELECT, null);
                 break;
             case "CountdownTable":
-                res = db.rawQuery(COUNTDOWN_DATE, null);
+                res = db.rawQuery(COUNTDOWN_SELECT, null);
                 break;
         }
         return res;
@@ -103,7 +111,7 @@ public class Database extends SQLiteOpenHelper {
                 content.put("Name", packingListItem.getName());
                 content.put("IsChecked", packingListItem.isChecked());
                 break;
-            case "CountdownTable":
+            case "GregorianCalendar":
                 Calendar date = (Calendar) object;
                 content.put("festivalDate", date.getTimeInMillis());
                 break;
