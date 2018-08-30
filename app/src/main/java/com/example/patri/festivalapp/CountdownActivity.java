@@ -137,7 +137,7 @@ public class CountdownActivity extends AppCompatActivity
             long diff = festivalDate.getTimeInMillis() - today.getTimeInMillis();
             days = (int) (diff / (1000 * 60 * 60 * 24));
         }
-        countdownView.setText(String.valueOf(days));
+        countdownView.setText(String.valueOf(days)+" "+"Tage");
     }
 
     public void editCountdown() {

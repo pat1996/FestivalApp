@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff1493">
+    android:orientation="vertical"
+    android:background="#EFEFFB">
+
+    <TextView
+        android:id="@+id/widget_viewOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/countdownViewOne"
+        android:textSize="15sp"
+        android:textAllCaps="true"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        />
 
     <TextView
         android:id="@+id/widget_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/countdown_view"
         android:textSize="30sp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:textAllCaps="true"
+        android:textAlignment="center"
+        />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/widget_viewTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/countdownViewTwo"
+        android:textSize="15sp"
+        android:textAllCaps="true"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        />
+
+</LinearLayout>

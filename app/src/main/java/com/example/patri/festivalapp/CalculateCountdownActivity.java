@@ -102,7 +102,7 @@ public class CalculateCountdownActivity extends Activity {
 
         Intent widget = new Intent(getApplicationContext(),CountdownWidgetActivity.class);
         widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
-        widget.putExtra("countdownWidget", "Nur noch "+getRemainingDays()+" Tage bis zum Festival");
+        widget.putExtra("countdownWidget", getRemainingDays());
         sendBroadcast(widget);
     }
 

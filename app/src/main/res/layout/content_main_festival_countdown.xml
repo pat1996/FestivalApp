@@ -18,11 +18,22 @@
         android:textAlignment="center"
         android:textSize="10dp"
         />
+
+
+    <TextView
+        android:id="@+id/countdown_viewOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/countdownViewOne"
+        android:textSize="30sp"
+        android:layout_marginTop="60dp"/>
+
     <TextView
         android:id="@+id/countdown_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:text="@string/countdown_view"
         android:textAlignment="center"
@@ -32,12 +43,12 @@
         />
 
     <TextView
-        android:id="@+id/festival"
-        android:layout_width="wrap_content"
+        android:id="@+id/countdown_viewTwo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/festival"
+        android:text="@string/countdownViewTwo"
+        android:textAlignment="center"
         android:textAllCaps="true"
-        android:layout_gravity="center"
         android:textSize="30sp" />
 
 

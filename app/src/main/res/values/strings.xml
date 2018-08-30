@@ -14,13 +14,14 @@
     <string name="cost_overview">Kostenübersicht</string>
     <string name="total">Total</string>
     <string name="add_new_countdown">Add A Festival</string>
-    <string name="countdown_view">0 Days</string>
-    <string name="festival">until the Festival</string>
+    <string name="countdown_view">0 Tage</string>
     <string name="festival_day">Day</string>
     <string name="festival_month">Month</string>
     <string name="festival_year">Year</string>
     <string name="countdown_btn">Start Counting Days</string>
     <string name="current_date">Current Date</string>
+    <string name="countdownViewOne">Nur noch </string>
+    <string name="countdownViewTwo"> bis zum Festival</string>
     <string name="hint_content_text">Preis der neuen Ausgabe...</string>
     <string name="hint_content_title">Name der neuen Ausgabe...</string>
     <string name="button_removeCost">Eintrag löschen</string>
