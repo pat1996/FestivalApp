@@ -5,14 +5,17 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,12 +32,14 @@ public class PacklistActivity extends AppCompatActivity
     ArrayList<PackingListItemDB> packing_list;
 
     private static final String TAG = "PacklistActivity";
+    private GestureDetectorCompat gestureObjectCOSTACTIVITY;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_festival_packlist);
+        gestureObjectCOSTACTIVITY = new GestureDetectorCompat(this, new LearnGesture());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -61,6 +66,35 @@ public class PacklistActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        onTouchEvent( event);
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.gestureObjectCOSTACTIVITY.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener{
+
+        int minStep=500;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
+
+           if(e2.getX() < (e1.getX() - minStep)){
+                Intent intent = new Intent(PacklistActivity.this, MainFestivalActivity.class);
+                finish();
+                startActivity(intent);
+           }
+            return true;
+        }
     }
 
     @Override

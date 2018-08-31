@@ -56,13 +56,12 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
 
     class LearnGesture extends GestureDetector.SimpleOnGestureListener{
 
+        int minStep=30;
+
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
-            if(e2.getX() > e1.getX()){
-                Intent intent = new Intent(CostAddActivity.this, MainFestivalActivity.class);
-                finish();
-                startActivity(intent);
-            }else if(e2.getX() < e1.getX()){
+
+            if(e2.getX() < (e1.getX() - minStep)){
                 Intent intent = new Intent(CostAddActivity.this, MainFestivalActivity.class);
                 finish();
                 startActivity(intent);

@@ -85,21 +85,12 @@ public class CostActivity extends AppCompatActivity
 
     class LearnGesture extends GestureDetector.SimpleOnGestureListener{
 
-        int minStep=30;
+        int minStep=500;
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
 
-            if(e2.getX() > (e1.getX()+minStep) ){
-                System.out.println(">>>>>>>>>>>>> EVENT 1");
-
-                Intent intent = new Intent(CostActivity.this, MainFestivalActivity.class);
-                finish();
-                startActivity(intent);
-
-            }else if(e2.getX() < (e1.getX()-minStep)){
-                System.out.println(">>>>>>>>>>>>> EVENT 2");
-
+            if(e2.getX() < (e1.getX() - minStep)){
                 Intent intent = new Intent(CostActivity.this, MainFestivalActivity.class);
                 finish();
                 startActivity(intent);

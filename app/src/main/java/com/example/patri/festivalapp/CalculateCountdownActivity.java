@@ -5,7 +5,10 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,7 @@ import java.util.Calendar;
 
 public class CalculateCountdownActivity extends Activity {
 
+    private GestureDetectorCompat gestureObject;
     EditText enterDay, enterMonth, enterYear;
     Button startCountdown;
 
@@ -21,6 +25,8 @@ public class CalculateCountdownActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculate_countdown);
+
+        gestureObject = new GestureDetectorCompat(this, new LearnGesture());
 
         startCountdown = (Button) findViewById(R.id.start_countdown_btn);
 
@@ -104,6 +110,28 @@ public class CalculateCountdownActivity extends Activity {
         widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
         widget.putExtra("countdownWidget", getRemainingDays());
         sendBroadcast(widget);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.gestureObject.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener{
+
+        int minStep=30;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
+
+            if(e2.getX() < (e1.getX() - minStep)){
+                Intent intent = new Intent(CalculateCountdownActivity.this, MainFestivalActivity.class);
+                finish();
+                startActivity(intent);
+            }
+            return true;
+        }
     }
 
 
