@@ -119,19 +119,14 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         long status;
         EditText nameEditText = (EditText) getView().findViewById(R.id.content_name);
         EditText priceEditText = (EditText) getView().findViewById(R.id.content_price);
-
         String name = nameEditText.getText().toString();
         if (name.isEmpty()) {
             Toast.makeText(getActivity(), "Please enter a cost!", Toast.LENGTH_SHORT).show();
             return;
         }
         Double price = parseDouble(priceEditText.getText().toString());
-
-        System.out.println(">>> Values: '"+name+"' & '"+price+"'");
-
         mCost.setName(name);
         mCost.setPrice(price);
-
         if (newCost) {
             status = new Database(getActivity()).insertCostEntry(name, price);
             mCost.setId((int) status);
@@ -152,12 +147,6 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param view The view that was clicked.
-     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

@@ -126,7 +126,7 @@ public class Database extends SQLiteOpenHelper {
         // Id and date are automatically generated (see SQL_CREATE_ENTRIES)
         values.put(COLUMN_NAME_NAME, name);
         values.put(COLUMN_NAME_PRICE, price);
-        return db.insert(TABLE_NAME, null, values);
+        return db.insert(TABLE_NAME, COLUMN_NAME_NAME, values);
     }
 
     public ArrayList<Cost> readCostData() {

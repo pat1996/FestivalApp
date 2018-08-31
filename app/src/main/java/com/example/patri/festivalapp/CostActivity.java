@@ -31,9 +31,7 @@ public class CostActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_festival_cost);
-
         gestureObjectCOSTACTIVITY = new GestureDetectorCompat(this, new LearnGesture());
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,7 +43,6 @@ public class CostActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -84,12 +81,9 @@ public class CostActivity extends AppCompatActivity
     }
 
     class LearnGesture extends GestureDetector.SimpleOnGestureListener{
-
         int minStep=500;
-
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
-
             if(e2.getX() < (e1.getX() - minStep)){
                 Intent intent = new Intent(CostActivity.this, MainFestivalActivity.class);
                 finish();
@@ -107,6 +101,33 @@ public class CostActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_packlist) {
+            Intent i = new Intent(this,PacklistActivity.class);
+            this.finish();
+            startActivity(i);
+        } else if (id == R.id.nav_weather) {
+            Intent i = new Intent(this,WeatherActivity.class);
+            this.finish();
+            startActivity(i);
+        } else if (id == R.id.nav_countdown) {
+            Intent i = new Intent(this,CountdownActivity.class);
+            this.finish();
+            startActivity(i);
+        } else if (id == R.id.nav_cost) {
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+
     }
 
     @Override
@@ -131,43 +152,6 @@ public class CostActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_packlist) {
-            Intent i = new Intent(this,PacklistActivity.class);
-            this.finish();
-            startActivity(i);
-        } else if (id == R.id.nav_weather) {
-            Intent i = new Intent(this,WeatherActivity.class);
-            this.finish();
-            startActivity(i);
-        } else if (id == R.id.nav_countdown) {
-            Intent i = new Intent(this,CountdownActivity.class);
-            this.finish();
-            startActivity(i);
-
-        } else if (id == R.id.nav_cost) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-
-    }
-
-    @Override
-    public void onListItemChanged() {
-        MyListFragment listFragment = (MyListFragment) getFragmentManager().findFragmentById(R.id.fragment_list);
-        if(listFragment != null){
-            listFragment.populateList();
-        }
-    }
-
     @Override
     public void onListItemSelected(int id) {
         ContentFragment contentFragment = (ContentFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
@@ -178,6 +162,14 @@ public class CostActivity extends AppCompatActivity
             Intent intent = new Intent(this, CostAddActivity.class);
             intent.putExtra(ContentFragment.ARG_ID, id);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onListItemChanged() {
+        MyListFragment listFragment = (MyListFragment) getFragmentManager().findFragmentById(R.id.fragment_list);
+        if(listFragment != null){
+            listFragment.populateList();
         }
     }
 }
