@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     style="@style/AppTheme"
-    tools:context="com.example.patri.festivalapp.ContentActivity">
+    tools:context="com.example.patri.festivalapp.CostAddActivity">
 
     <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"

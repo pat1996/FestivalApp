@@ -3,13 +3,17 @@ package com.example.patri.festivalapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -21,14 +25,17 @@ public class CostActivity extends AppCompatActivity
     public static final int INTENT_ITEM_SELECTED_ID = 0;
     public static final String INTENT_ITEM_SELECTED_NAME = "IntentForLoadingSelectedCost";
 
+    private GestureDetectorCompat gestureObjectCOSTACTIVITY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_festival_cost);
+
+        gestureObjectCOSTACTIVITY = new GestureDetectorCompat(this, new LearnGesture());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -57,11 +64,48 @@ public class CostActivity extends AppCompatActivity
                     contentFragment.loadEmptyView();
                 }else {
                     Toast.makeText(CostActivity.this, "Content Fragment not there, switching!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CostActivity.this,  ContentActivity.class);
+                    Intent intent = new Intent(CostActivity.this,  CostAddActivity.class);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        onTouchEvent( event);
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.gestureObjectCOSTACTIVITY.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener{
+
+        int minStep=30;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
+
+            if(e2.getX() > (e1.getX()+minStep) ){
+                System.out.println(">>>>>>>>>>>>> EVENT 1");
+
+                Intent intent = new Intent(CostActivity.this, MainFestivalActivity.class);
+                finish();
+                startActivity(intent);
+
+            }else if(e2.getX() < (e1.getX()-minStep)){
+                System.out.println(">>>>>>>>>>>>> EVENT 2");
+
+                Intent intent = new Intent(CostActivity.this, MainFestivalActivity.class);
+                finish();
+                startActivity(intent);
+            }
+            return true;
+        }
     }
 
     @Override
@@ -140,7 +184,7 @@ public class CostActivity extends AppCompatActivity
             contentFragment.viewContent(id);
         }else{
             Toast.makeText(this, "Content Fragment not there, switching!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ContentActivity.class);
+            Intent intent = new Intent(this, CostAddActivity.class);
             intent.putExtra(ContentFragment.ARG_ID, id);
             startActivity(intent);
         }

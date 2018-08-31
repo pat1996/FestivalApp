@@ -3,11 +3,16 @@ package com.example.patri.festivalapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
-public class ContentActivity extends Activity implements ContentFragment.OnListItemChangedListener {
+public class CostAddActivity extends Activity implements ContentFragment.OnListItemChangedListener {
+
+    private GestureDetectorCompat gestureObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +21,8 @@ public class ContentActivity extends Activity implements ContentFragment.OnListI
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        gestureObject = new GestureDetectorCompat(this, new LearnGesture());
 
         // TODO Use the ContentFragment in order to show the article or load an empty
         // view (dummy id is -1) when a new cost should be created
@@ -38,6 +45,29 @@ public class ContentActivity extends Activity implements ContentFragment.OnListI
             }
         } else {
             Toast.makeText(this, "Create your new cost here!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.gestureObject.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener{
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
+            if(e2.getX() > e1.getX()){
+                Intent intent = new Intent(CostAddActivity.this, MainFestivalActivity.class);
+                finish();
+                startActivity(intent);
+            }else if(e2.getX() < e1.getX()){
+                Intent intent = new Intent(CostAddActivity.this, MainFestivalActivity.class);
+                finish();
+                startActivity(intent);
+            }
+            return true;
         }
     }
 
