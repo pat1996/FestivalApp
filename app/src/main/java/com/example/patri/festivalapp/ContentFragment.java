@@ -119,7 +119,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         EditText priceEditText = (EditText) getView().findViewById(R.id.content_price);
         String name = nameEditText.getText().toString();
         if (name.isEmpty()) {
-            Toast.makeText(getActivity(), "Bitte gib eine Ausgabe ein!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Gib bitte eine Ausgabe ein!", Toast.LENGTH_SHORT).show();
             return;
         }
         Double price = parseDouble(priceEditText.getText().toString());

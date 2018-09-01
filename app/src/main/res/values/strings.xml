@@ -8,11 +8,10 @@
     <string name="action_settings">Settings</string>
     <string name="new_costs">New Cost</string>
     <string name="name">Name</string>
-    <string name="price">Price</string>
+    <string name="price">Preis</string>
     <string name="button">Button</string>
-    <string name="costs_overview">Cost Overview</string>
     <string name="cost_overview">Kostenübersicht</string>
-    <string name="total">Total</string>
+    <string name="total">Gesamt</string>
     <string name="add_new_countdown">Add A Festival</string>
     <string name="countdown_view">0 Tage</string>
     <string name="festival_day">Day</string>

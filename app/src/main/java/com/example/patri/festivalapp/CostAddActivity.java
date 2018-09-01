@@ -41,10 +41,10 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
                     cf.loadEmptyView();
                 }
             } else {
-                Toast.makeText(this, "Content Fragment not there!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Content Fragment nicht vorhanden!", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, "Create your new cost here!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Gib hier deine neue Ausgabe ein!", Toast.LENGTH_SHORT).show();
         }
     }
 

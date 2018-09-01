@@ -59,7 +59,7 @@ public class CostActivity extends AppCompatActivity
                 if(contentFragment != null){
                     contentFragment.loadEmptyView();
                 }else {
-                    Toast.makeText(CostActivity.this, "Content Fragment not there, switching!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CostActivity.this, "Content Fragment nicht vorhanden, wechseln!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CostActivity.this,  CostAddActivity.class);
                     startActivity(intent);
                 }
@@ -157,7 +157,7 @@ public class CostActivity extends AppCompatActivity
         if(contentFragment != null){
             contentFragment.viewContent(id);
         }else{
-            Toast.makeText(this, "Content Fragment not there, switching!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Content Fragment nicht vorhanden, wechseln!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, CostAddActivity.class);
             intent.putExtra(ContentFragment.ARG_ID, id);
             startActivity(intent);
