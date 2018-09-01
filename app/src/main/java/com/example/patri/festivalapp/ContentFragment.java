@@ -33,10 +33,6 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
     public final static String ARG_ID = "id";
     private Cost mCost = null;
     private boolean newCost = true;
-    // Sets an ID for the notification
-    private final static int NOTIFICATION_ID = 0;
-    private final static String NOTIFICATION_CHANNEL_NAME = "CH0";
-    private final static String NOTIFICATION_CHANNEL_ID = "0";
 
     public ContentFragment() {
     }
@@ -52,18 +48,13 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    /**
-     * Loads and views a cost based on its id.
-     *
-     * @param id the id of the cost to display
-     */
     public void viewContent(int id) {
         mCost = new Database(getActivity()).readEntryById(id);
         if (mCost != null) {
             EditText name = (EditText) getView().findViewById(R.id.content_name);
             EditText price = (EditText) getView().findViewById(R.id.content_price);
             name.setText(mCost.getName());
-            price.setText(String.valueOf(price));
+            price.setText(String.valueOf(mCost.getPrice()) + "€");
 
             newCost = false;
         } else {
@@ -72,9 +63,6 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * Opens an empty content view for entering a new cost
-     */
     public void loadEmptyView() {
         mCost = new Cost();
         emptyContentView();
