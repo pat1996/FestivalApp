@@ -17,7 +17,7 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
+        setContentView(R.layout.cost_add_fragment);
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -93,8 +93,8 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
 
     @Override
     public void onListItemChanged() {
-        MyListFragment lf =
-                (MyListFragment) getFragmentManager().findFragmentById(R.id.fragment_list);
+        CostList lf =
+                (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
         if (lf != null) {
             lf.populateList();
         }

@@ -3,7 +3,6 @@ package com.example.patri.festivalapp;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MyListFragment extends ListFragment {
+public class CostList extends ListFragment {
 
     private OnListItemSelectedListener mCallback;
 
@@ -24,14 +23,14 @@ public class MyListFragment extends ListFragment {
         public void onListItemSelected(int id);
     }
 
-    public MyListFragment() {
+    public CostList() {
     }
 
     //Hier wird angegeben, welches Layout angezeigt werden soll.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list, container, false);
+        return inflater.inflate(R.layout.cost_list, container, false);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class MyListFragment extends ListFragment {
             values = new ArrayList<Cost>();
             values.add(dummy);
         }
-        CostListItemAdapter costListItemAdapter = new CostListItemAdapter(getActivity(), R.layout.my_list_fragment, values);
+        CostListItemAdapter costListItemAdapter = new CostListItemAdapter(getActivity(), R.layout.cost_list_single_entry, values);
         setListAdapter(costListItemAdapter);
         refreshTotalCost();
     }

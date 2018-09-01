@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import static java.lang.Double.parseDouble;
 
 public class ContentFragment extends Fragment implements View.OnClickListener {
@@ -46,7 +44,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_content, container, false);
+        View view = inflater.inflate(R.layout.cost_add, container, false);
         Button createOrUpdateButton = (Button) view.findViewById(R.id.button_updateCost);
         Button removeButton = (Button) view.findViewById(R.id.button_removeCost);
         createOrUpdateButton.setOnClickListener(this);
@@ -70,7 +68,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
             newCost = false;
         } else {
             loadEmptyView();
-            Toast.makeText(getActivity(), "Error loading cost!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Fehler beim Laden der Ausgaben!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -85,21 +83,21 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
 
     public void removeEntry(View view) {
         if (mCost == null) {
-            Toast.makeText(getActivity(), "Error, nothing was removed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Fehler, es wurde nichts gelöscht!", Toast.LENGTH_SHORT).show();
             return;
         }
         int numRemovedRows = new Database(getActivity()).removeEntry(mCost.getId());
         if (numRemovedRows == 1) {
-            Toast.makeText(getActivity(), "Cost removed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Ausgabe gelöscht!", Toast.LENGTH_SHORT).show();
         } else if (numRemovedRows <= 0) {
-            Toast.makeText(getActivity(), "Error, nothing was removed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Fehler, es wurde nichts gelöscht!", Toast.LENGTH_SHORT).show();
         }
         mCost = null;
         emptyContentView();
         // Switch back to list fragment if we are in one fragment layout
-        MyListFragment myListFragment =
-                (MyListFragment) getFragmentManager().findFragmentById(R.id.fragment_list);
-        if (myListFragment == null) {
+        CostList costList =
+                (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
+        if (costList == null) {
             Intent loadMainViewIntent = new Intent(getActivity(), CostActivity.class);
             loadMainViewIntent.putExtra(CostActivity.INTENT_ITEM_SELECTED_NAME,
                     CostActivity.INTENT_ITEM_SELECTED_ID);
@@ -121,7 +119,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         EditText priceEditText = (EditText) getView().findViewById(R.id.content_price);
         String name = nameEditText.getText().toString();
         if (name.isEmpty()) {
-            Toast.makeText(getActivity(), "Please enter a cost!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Bitte gib eine Ausgabe ein!", Toast.LENGTH_SHORT).show();
             return;
         }
         Double price = parseDouble(priceEditText.getText().toString());
@@ -131,18 +129,18 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
             status = new Database(getActivity()).insertCostEntry(name, price);
             mCost.setId((int) status);
             if (status == -1) {
-                Toast.makeText(getActivity(), "Error inserting the cost!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Fehler beim Hinzufügen deiner Ausgabe!", Toast.LENGTH_SHORT).show();
             } else if (status >= 0) {
                 newCost = false;
-                Toast.makeText(getActivity(), "Cost inserted!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Ausgabe hinzugefügt!", Toast.LENGTH_SHORT).show();
             }
             // Update the current entry
         } else {
             status = new Database(getActivity()).updateEntry(mCost.getId(), name, price);
             if (status == -1) {
-                Toast.makeText(getActivity(), "Error inserting the cost!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Fehler beim Hinzufügen deiner Ausgabe!", Toast.LENGTH_SHORT).show();
             } else if (status >= 0) {
-                Toast.makeText(getActivity(), "Cost updated!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Ausgabe aktualisiert!", Toast.LENGTH_SHORT).show();
             }
         }
     }

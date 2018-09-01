@@ -2,7 +2,6 @@ package com.example.patri.festivalapp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ public class CostListItemAdapter extends ArrayAdapter<Cost> {
 
         if(convertView==null) {
             LayoutInflater inflater =(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView= inflater.inflate(R.layout.my_list_fragment,null);
+            convertView= inflater.inflate(R.layout.cost_list_single_entry,null);
         }
 
         Cost cost = costs.get(position);

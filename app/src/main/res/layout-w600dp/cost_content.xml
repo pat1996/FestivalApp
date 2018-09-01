@@ -5,10 +5,10 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/fragment_list"
-        android:name="com.example.patri.festivalapp.MyListFragment"
+        android:name="com.example.patri.festivalapp.CostList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/cost_list" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/fragment_list"
         android:layout_toRightOf="@+id/fragment_list"
-        tools:layout="@layout/fragment_content" />
+        tools:layout="@layout/cost_add" />
 
 </RelativeLayout>
