@@ -24,21 +24,16 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
 
         gestureObject = new GestureDetectorCompat(this, new LearnGesture());
 
-        // TODO Use the ContentFragment in order to show the article or load an empty
-        // view (dummy id is -1) when a new cost should be created
-
-        // Get cost id from Intent
         Intent intent = getIntent();
         if (intent != null) {
-            ContentFragment cf = (ContentFragment) getFragmentManager()
-                    .findFragmentById(R.id.fragment_activity_content);
-            // Last argument is the default value, used here to indicate a missing id
+            ContentFragment contentFragment = (ContentFragment) getFragmentManager()
+                    .findFragmentById(R.id.fragment_cost_add);
             int id = intent.getIntExtra(ContentFragment.ARG_ID, -1);
-            if (cf != null) {
+            if (contentFragment != null) {
                 if (id != -1) {
-                    cf.viewContent(id);
+                    contentFragment.viewContent(id);
                 } else {
-                    cf.loadEmptyView();
+                    contentFragment.loadEmptyView();
                 }
             } else {
                 Toast.makeText(this, "Content Fragment nicht vorhanden!", Toast.LENGTH_SHORT).show();
@@ -93,12 +88,11 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
 
     @Override
     public void onListItemChanged() {
-        CostList lf =
+        CostList costList =
                 (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
-        if (lf != null) {
-            lf.populateList();
+        if (costList != null) {
+            costList.populateList();
         }
-        // No "else" cases needed because in the one fragment layout on small devices, the reloading
-        // is done automatically because the list fragment will be reloaded
+
     }
 }

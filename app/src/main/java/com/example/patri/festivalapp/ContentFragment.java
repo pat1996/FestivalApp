@@ -122,11 +122,15 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "Gib bitte eine Ausgabe ein!", Toast.LENGTH_SHORT).show();
             return;
         }
-        Double price = parseDouble(priceEditText.getText().toString());
+        String price = priceEditText.getText().toString();
+        if (price.isEmpty()) {
+            Toast.makeText(getActivity(), "Gib bitte einen Preis ein!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mCost.setName(name);
-        mCost.setPrice(price);
+        mCost.setPrice(Double.parseDouble(price));
         if (newCost) {
-            status = new Database(getActivity()).insertCostEntry(name, price);
+            status = new Database(getActivity()).insertCostEntry(name, Double.parseDouble(price));
             mCost.setId((int) status);
             if (status == -1) {
                 Toast.makeText(getActivity(), "Fehler beim Hinzufügen deiner Ausgabe!", Toast.LENGTH_SHORT).show();
@@ -136,7 +140,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
             }
             // Update the current entry
         } else {
-            status = new Database(getActivity()).updateEntry(mCost.getId(), name, price);
+            status = new Database(getActivity()).updateEntry(mCost.getId(), name, Double.parseDouble(price));
             if (status == -1) {
                 Toast.makeText(getActivity(), "Fehler beim Hinzufügen deiner Ausgabe!", Toast.LENGTH_SHORT).show();
             } else if (status >= 0) {

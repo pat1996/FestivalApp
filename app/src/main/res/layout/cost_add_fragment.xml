@@ -12,7 +12,7 @@
     <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/fragment_activity_content"
+        android:id="@+id/fragment_cost_add"
         android:name="com.example.patri.festivalapp.ContentFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -45,7 +45,6 @@ public class CostActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         if (intent != null) {
-            // Only switch when it was our own Intent (and not the one from the launch screen)
             if (intent.getIntExtra(INTENT_ITEM_SELECTED_NAME, -1) == INTENT_ITEM_SELECTED_ID) {
                 onListItemSelected(intent.getIntExtra(ContentFragment.ARG_ID, -1));
             }
@@ -126,7 +125,6 @@ public class CostActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
 
     @Override
@@ -147,7 +145,6 @@ public class CostActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -166,9 +163,9 @@ public class CostActivity extends AppCompatActivity
 
     @Override
     public void onListItemChanged() {
-        CostList listFragment = (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
-        if(listFragment != null){
-            listFragment.populateList();
+        CostList costList = (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
+        if(costList != null){
+            costList.populateList();
         }
     }
 }

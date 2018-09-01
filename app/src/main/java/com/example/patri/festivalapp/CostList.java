@@ -77,11 +77,8 @@ public class CostList extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Cost clickedCost = (Cost) l.getItemAtPosition(position);
-        Toast.makeText(getActivity(),
-                "Clicked on pos: " + position + "; id: " + id,
+        Toast.makeText(getActivity(),"Geklickt an Pos: " + position + "; Id: " + id,
                 Toast.LENGTH_LONG).show();
-
-        // Prevent opening the dummy entry
         if (clickedCost.getId() == -1) {
             return;
         }

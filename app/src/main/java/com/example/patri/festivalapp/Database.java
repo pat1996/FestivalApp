@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -209,7 +210,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(String.valueOf(COLUMN_NAME_PRICE), price);
         // Define 'where' part of query
         String selection = ID + " = ?";
-        Log.d("CostDB", "Update entry with ID: " + id);
+        Log.d("Database", "Update entry with ID: " + id);
         // Specify arguments in placeholder order.
         String[] selectionArgs = {String.valueOf(id)};
         return db.update(TABLE_NAME, values, selection, selectionArgs);
@@ -220,7 +221,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = cDB.getWritableDatabase();
         // Define 'where' part of query
         String selection = ID + " = ?";
-        Log.d("CostDB", "Delete entry with ID: " + id);
+        Log.d("Database", "Delete entry with ID: " + id);
         // Specify arguments in placeholder order.
         String[] selectionArgs = {String.valueOf(id)};
         // Issue SQL statement.
