@@ -12,14 +12,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class CalculateCountdownActivity extends Activity {
 
     private GestureDetectorCompat gestureObject;
-    EditText enterDay, enterMonth, enterYear;
-    Button startCountdown;
+    private EditText enterDay, enterMonth, enterYear;
+    private Button startCountdown;
+    private String emptyField = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +135,20 @@ public class CalculateCountdownActivity extends Activity {
             return true;
         }
     }
+   /* public boolean checkIfAllTextsAreFilledIn(){
+
+        if(enterDay.getText().toString().isEmpty() | enterMonth.getText().toString().isEmpty() | enterYear.getText().toString().isEmpty()){
+            Toast.makeText(CalculateCountdownActivity.this,"Du hast noch nicht alles ausgefüllt", Toast.LENGTH_LONG);
+            return false;
+        }
+        if(enterYear.getText().toString().length()<=4){
+            Toast.makeText(CalculateCountdownActivity.this, "Schreibe das Jahr ganz aus: 2018", Toast.LENGTH_SHORT);
+            return false;
+        }
+        return true;
+
+    }*/
+
 
 
 }
