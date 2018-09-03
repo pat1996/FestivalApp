@@ -147,7 +147,7 @@ public class WeatherActivity extends AppCompatActivity
     }
 
     public void editWeather(){
-        Intent startWeatherEdit = new Intent(this,WeatherShow.class);
+        Intent startWeatherEdit = new Intent(this,WeatherShowActivity.class);
         startActivity(startWeatherEdit);
     }
 }
