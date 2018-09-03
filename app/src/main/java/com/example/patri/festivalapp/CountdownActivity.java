@@ -56,11 +56,27 @@ public class CountdownActivity extends AppCompatActivity
                 editCountdown();
             }
         });
-//        Intent getDays = getIntent();
-//        String remainingDays = getDays.getStringExtra("countingDays");
-//        countdownView.setText(remainingDays+" "+"Days");
 
-        calculateRemainingDays();
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    while (!this.isInterrupted()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                calculateRemainingDays();
+                            }
+                        });
+                        Thread.sleep(1800000);
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        thread.start();
     }
 
     @Override
@@ -157,7 +173,6 @@ public class CountdownActivity extends AppCompatActivity
         Cursor res = db.selectAllFromTable("CountdownTable");
 
         res.moveToFirst();
-        Log.e("Anzahl.", String.valueOf(res.getCount()));
 
         int days = 0;
         int index = res.getColumnIndex("festivalDate");
