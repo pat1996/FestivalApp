@@ -24,6 +24,8 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
 
         gestureObject = new GestureDetectorCompat(this, new LearnGesture());
 
+        // Check if ContentFragment is there
+        // Get cost ID from Intent
         Intent intent = getIntent();
         if (intent != null) {
             ContentFragment contentFragment = (ContentFragment) getFragmentManager()
@@ -43,6 +45,8 @@ public class CostAddActivity extends Activity implements ContentFragment.OnListI
         }
     }
 
+    // The following override method and the class LearnGesture are needed for the swipe functionality
+    // So the user can go back to the MainFestivalActivity only with a swipe to the left
     @Override
     public boolean onTouchEvent(MotionEvent event){
         this.gestureObject.onTouchEvent(event);

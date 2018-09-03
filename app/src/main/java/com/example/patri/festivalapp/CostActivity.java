@@ -66,6 +66,8 @@ public class CostActivity extends AppCompatActivity
         });
     }
 
+    // The following two override methods and the class LearnGesture are needed for the swipe functionality
+    // So the user can go back to the MainFestivalActivity only with a swipe to the left
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         onTouchEvent( event);

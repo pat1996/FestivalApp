@@ -120,16 +120,18 @@ public class Database extends SQLiteOpenHelper {
         return content;
     }
 
+    // Method for inserting a new cost entry
     public long insertCostEntry(String name, Double price) {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();
         ContentValues values = new ContentValues();
-        // Id and date are automatically generated (see SQL_CREATE_ENTRIES)
+        // Id is automatically generated (see SQL_CREATE_ENTRIES)
         values.put(COLUMN_NAME_NAME, name);
         values.put(COLUMN_NAME_PRICE, price);
         return db.insert(TABLE_NAME, COLUMN_NAME_NAME, values);
     }
 
+    // Method to read the cost data
     public ArrayList<Cost> readCostData() {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();
@@ -154,10 +156,8 @@ public class Database extends SQLiteOpenHelper {
         cursor.moveToFirst();
         int rowCount = cursor.getCount();
 
-
         ArrayList<Cost> costEntries = new ArrayList();
         for (int i = 0; i < rowCount; ++i) {
-
             int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(ID)));
             String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_NAME));
             double price = cursor.getDouble(cursor.getColumnIndex(String.valueOf(COLUMN_NAME_PRICE)));
@@ -169,6 +169,7 @@ public class Database extends SQLiteOpenHelper {
         return costEntries;
     }
 
+    // Method to read the entries by ID
     public Cost readEntryById(int id) {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();
@@ -201,6 +202,7 @@ public class Database extends SQLiteOpenHelper {
         return cost;
     }
 
+    // Method to update a entry
     public long updateEntry(int id, String name, double price) {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();
@@ -216,6 +218,7 @@ public class Database extends SQLiteOpenHelper {
         return db.update(TABLE_NAME, values, selection, selectionArgs);
     }
 
+    // Method to remove a entry
     public int removeEntry(int id) {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();

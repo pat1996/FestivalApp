@@ -48,7 +48,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    //Method, which loads and views a cost based on its id.
+    // Method, which loads and views a cost based on its id.
     public void viewContent(int id) {
         mCost = new Database(getActivity()).readEntryById(id);
         if (mCost != null) {
@@ -64,7 +64,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    //Method, which opens an empty view for entering a new cost
+    // Method, which opens an empty view for entering a new cost
     public void loadEmptyView() {
         mCost = new Cost();
         emptyContentView();
@@ -72,7 +72,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    //Method to remove an entry
+    // Method to remove an entry
     public void removeEntry(View view) {
         if (mCost == null) {
             Toast.makeText(getActivity(), "Fehler, es wurde nichts gelöscht!", Toast.LENGTH_SHORT).show();
@@ -105,7 +105,7 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
         price.setText("");
     }
 
-    //Method to update or save a (new) cost
+    // Method to update or save a (new) cost
     public void updateOrSaveEntry(View view) {
         long status;
         EditText nameEditText = (EditText) getView().findViewById(R.id.content_name);
