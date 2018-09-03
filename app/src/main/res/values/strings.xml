@@ -13,7 +13,7 @@
     <string name="cost_overview">Kostenübersicht</string>
     <string name="total">Gesamt</string>
     <string name="add_new_countdown">Füge ein Festival hinzu</string>
-    <string name="countdown_view">0 Tage</string>
+    <string name="countdown_view">0</string>
     <string name="festival_day">Tag</string>
     <string name="festival_month">Monat</string>
     <string name="festival_year">Jahr</string>

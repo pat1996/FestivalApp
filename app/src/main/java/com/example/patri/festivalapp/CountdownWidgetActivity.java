@@ -23,6 +23,11 @@ public class CountdownWidgetActivity extends AppWidgetProvider {
             daysInWidget = intent.getStringExtra("countdownWidget");
             rViews.setTextViewText(R.id.widget_text_view,daysInWidget);
             updateWidget(context,rViews);
+
+        } else if (intent.hasExtra("newNumDaysWidget")){
+            daysInWidget=intent.getStringExtra("newNumDaysWidget");
+            rViews.setTextViewText(R.id.widget_text_view,daysInWidget);
+            updateWidget(context,rViews);
         }
         super.onReceive(context,intent);
     }
@@ -30,5 +35,6 @@ public class CountdownWidgetActivity extends AppWidgetProvider {
     public void updateWidget(Context context, RemoteViews rViews){
         ComponentName widgetCo = new ComponentName(context, CountdownWidgetActivity.class);
         AppWidgetManager.getInstance(context).updateAppWidget(widgetCo,rViews);
+
     }
 }
