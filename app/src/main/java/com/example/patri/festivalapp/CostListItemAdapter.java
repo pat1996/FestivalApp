@@ -16,24 +16,18 @@ public class CostListItemAdapter extends ArrayAdapter<Cost> {
     private LayoutInflater myInflater;
     private int myViewResourceId;
 
-
     public CostListItemAdapter(@NonNull Context context, int resourceId, @NonNull ArrayList<Cost> objects) {
         super(context, resourceId, objects);
         this.costs = objects;
         myInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         myViewResourceId = resourceId;
-
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        //convertView = myInflater.inflate(myViewResourceId, null);
-
-
         if(convertView==null) {
             LayoutInflater inflater =(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView= inflater.inflate(R.layout.cost_list_single_entry,null);
         }
-
         Cost cost = costs.get(position);
         if(cost!=null ) {
             TextView tvName = (TextView) convertView.findViewById(R.id.name);
@@ -41,7 +35,6 @@ public class CostListItemAdapter extends ArrayAdapter<Cost> {
 
             tvName.setText(cost.getName());
             tvPrice.setText(""+cost.getPrice()+"€");
-
         }
         return convertView;
     }

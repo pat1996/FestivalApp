@@ -24,8 +24,7 @@ public class DecimalDigitsInputFilter implements InputFilter {
             }
         }
         if (dotPos >= 0) {
-            if (source.equals(".") || source.equals(","))
-            {
+            if (source.equals(".") || source.equals(",")) {
                 return "";
             }
             if (dend <= dotPos) {

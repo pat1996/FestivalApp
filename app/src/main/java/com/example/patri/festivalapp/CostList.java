@@ -16,9 +16,7 @@ public class CostList extends ListFragment {
 
     private OnListItemSelectedListener mCallback;
 
-    /**
-     * This interface allows the fragment to communicate with the activity
-     */
+    // This interface allows the fragment to communicate with the activity
     public interface OnListItemSelectedListener {
         public void onListItemSelected(int id);
     }
@@ -26,7 +24,7 @@ public class CostList extends ListFragment {
     public CostList() {
     }
 
-    //Hier wird angegeben, welches Layout angezeigt werden soll.
+    // This override method says, which layout should be show
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,10 +45,8 @@ public class CostList extends ListFragment {
      * <code>notifyDataSetChanged()</code> method. But in order to show the dummy entry when the list
      * is empty, the list is recreated from the beginning.</b>
      */
-
     protected void populateList() {
         ArrayList<Cost> values = new Database(getActivity()).readCostData();
-
         // Use dummy not for informing about empty list
         if (values.size() == 0) {
             Cost dummy = new Cost();
@@ -63,6 +59,7 @@ public class CostList extends ListFragment {
         refreshTotalCost();
     }
 
+    // This Method is for refreshing the new total cost
     public void refreshTotalCost() {
         TextView tvTotalCost = (TextView) getView().findViewById(R.id.total_cost_price);
         tvTotalCost.setText(String.valueOf(MainFestivalActivity.getTotalCost()) + "€");
@@ -86,7 +83,7 @@ public class CostList extends ListFragment {
     }
 
 
-    //onAttach = das Fragment wird an die Activity angehängt
+    //onAttach = the fragment is attached to the activity
     @SuppressWarnings("deprecation")
     // The new method onAttach(Context context) doesn't exist in API level 22 and below
     @Override

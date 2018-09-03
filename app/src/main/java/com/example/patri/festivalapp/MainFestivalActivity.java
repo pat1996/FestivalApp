@@ -32,6 +32,7 @@ public class MainFestivalActivity extends AppCompatActivity
         return db;
     }
 
+    // This method calculates the total cost
     public static double getTotalCost() {
         ArrayList<Cost> values;
         values = db.readCostData();
