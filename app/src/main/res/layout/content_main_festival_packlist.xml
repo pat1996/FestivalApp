@@ -47,7 +47,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/packlist_list_view"
+        android:id="@+id/packlist_List_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

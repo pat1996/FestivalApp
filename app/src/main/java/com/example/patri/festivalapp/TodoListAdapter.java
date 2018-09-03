@@ -8,20 +8,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class TodoListAdapter extends BaseAdapter {
     private final LayoutInflater inflator;
-    PackingListItemDB packingListItemDB;
+    PackingListItemDB packing_list;
+
 
     public TodoListAdapter(PackingListItemDB packingListItemDB, Context context) {
-        this.packingListItemDB = packingListItemDB;
+        this.packing_list = packingListItemDB;
+
 
         inflator = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
+
        return 0;
     }
 
@@ -49,10 +55,10 @@ public class TodoListAdapter extends BaseAdapter {
         } else {
             holder = (TodoListAdapter.ViewHolder) convertView.getTag();
         }
-        packingListItemDB = (PackingListItemDB) getItem(position);
+        packing_list = (PackingListItemDB) getItem(position);
         holder.done_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                packingListItemDB.setChecked(isChecked);
+                packing_list.setChecked(isChecked);
 
                 if (isChecked) {
                     holder.task_view.setPaintFlags(holder.task_view.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -62,8 +68,8 @@ public class TodoListAdapter extends BaseAdapter {
             }
         });
 
-        holder.task_view.setText(packingListItemDB.getName());
-        holder.done_box.setChecked(packingListItemDB.isChecked());
+        holder.task_view.setText(packing_list.getName());
+        holder.done_box.setChecked(packing_list.isChecked());
 
         return convertView;
     }

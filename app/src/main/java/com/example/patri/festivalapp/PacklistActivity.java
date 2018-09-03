@@ -29,7 +29,9 @@ public class PacklistActivity extends AppCompatActivity
 
     ImageButton packlist_task_button;
     EditText packlist_taskname;
+    ListView lv ;
     ArrayList<PackingListItemDB> packing_list;
+    TodoListAdapter adapter;
 
     private static final String TAG = "PacklistActivity";
     private GestureDetectorCompat gestureObjectCOSTACTIVITY;
@@ -55,6 +57,11 @@ public class PacklistActivity extends AppCompatActivity
 
         packlist_taskname = (EditText) findViewById(R.id.packlist_taskname);
         packlist_task_button = (ImageButton) findViewById(R.id.packlist_task_button);
+        packing_list = new ArrayList<PackingListItemDB>();
+        lv = (ListView)findViewById(R.id.packlist_List_view);
+       // adapter = new TodoListAdapter(packing_list, this);
+        lv.setAdapter(adapter);
+
         packlist_task_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,10 +170,15 @@ public class PacklistActivity extends AppCompatActivity
         item.setName(packlist_taskname.getText().toString());
         item.setChecked(true);
 
-        ListView lv = (ListView) findViewById(R.id.packlist_list_view);
+       // ListView lv = (ListView) findViewById(R.id.packlist_List_view);
 
         Database db = MainFestivalActivity.getDb();
         db.insertIntoTable("PackingList", item);
+       /* if (packlist_taskname.getText().length() > 0) {
+            packing_list.add(new PackingListItemDB(packlist_taskname.getText().toString(), false));
+            adapter.notifyDataSetChanged();
+
+        }*/
 
         packlist_taskname.setText("");
     }
