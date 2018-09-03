@@ -66,7 +66,7 @@ public class CountdownActivity extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                calculateRemainingDays();
+                                countdownView.setText(calculateRemainingDays()+" "+"Tage");
                             }
                         });
                         Thread.sleep(1800000);
@@ -168,7 +168,7 @@ public class CountdownActivity extends AppCompatActivity
         return true;
     }
 
-    public void calculateRemainingDays() {
+    public int calculateRemainingDays() {
         Database db = MainFestivalActivity.getDb();
         Cursor res = db.selectAllFromTable("CountdownTable");
 
@@ -185,7 +185,7 @@ public class CountdownActivity extends AppCompatActivity
             long diff = festivalDate.getTimeInMillis() - today.getTimeInMillis();
             days = (int) (diff / (1000 * 60 * 60 * 24));
         }
-        countdownView.setText(String.valueOf(days)+" "+"Tage");
+        return days;
     }
 
     public void editCountdown() {
