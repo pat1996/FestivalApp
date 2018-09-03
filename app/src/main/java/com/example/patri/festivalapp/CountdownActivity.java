@@ -1,5 +1,6 @@
 package com.example.patri.festivalapp;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ public class CountdownActivity extends AppCompatActivity
 
     TextView countdownView;
     Button addCountdown;
-    private static final String noFestival = "0 Days";
     private GestureDetectorCompat gestureObjectCOSTACTIVITY;
 
 
@@ -66,7 +66,12 @@ public class CountdownActivity extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                countdownView.setText(calculateRemainingDays()+" "+"Tage");
+                                String newNumberOfDays = calculateRemainingDays()+" "+"Tage";
+                                countdownView.setText(newNumberOfDays);
+                                Intent updateWidget = new Intent(getApplicationContext(), CountdownWidgetActivity.class);
+                                updateWidget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
+                                updateWidget.putExtra("newNumDaysWidget", newNumberOfDays);
+                                sendBroadcast(updateWidget);
                             }
                         });
                         Thread.sleep(1800000);

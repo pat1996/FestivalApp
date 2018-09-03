@@ -36,8 +36,13 @@ public class CalculateCountdownActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                setCountdown();
-                setWidget();
+
+             setCountdown();
+             setWidget();
+
+            //Toast.makeText(CalculateCountdownActivity.this,"Du hast nicht alles ausgefüllt",Toast.LENGTH_LONG).show();
+                //MIT TRY CATCH??
+
             }
         });
 
@@ -80,7 +85,7 @@ public class CalculateCountdownActivity extends Activity {
 
         festival.set(Calendar.YEAR, getFestivalYear());
         festival.set(Calendar.MONTH, getFestivalMonth() - 1);
-        festival.set(Calendar.DATE, getFestivalDay());
+        festival.set(Calendar.DATE, getFestivalDay()+1);
 
         Database db = MainFestivalActivity.getDb();
         db.insertIntoTable("CountdownTable", festival);
@@ -135,20 +140,6 @@ public class CalculateCountdownActivity extends Activity {
             return true;
         }
     }
-   /* public boolean checkIfAllTextsAreFilledIn(){
-
-        if(enterDay.getText().toString().isEmpty() | enterMonth.getText().toString().isEmpty() | enterYear.getText().toString().isEmpty()){
-            Toast.makeText(CalculateCountdownActivity.this,"Du hast noch nicht alles ausgefüllt", Toast.LENGTH_LONG);
-            return false;
-        }
-        if(enterYear.getText().toString().length()<=4){
-            Toast.makeText(CalculateCountdownActivity.this, "Schreibe das Jahr ganz aus: 2018", Toast.LENGTH_SHORT);
-            return false;
-        }
-        return true;
-
-    }*/
-
 
 
 }
