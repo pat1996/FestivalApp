@@ -34,6 +34,10 @@ public class Database extends SQLiteOpenHelper {
             "Name TEXT," +
             "IsChecked BOOLEAN);";
     private static final String PACKINGLIST_SELECT = "SELECT * FROM PackingList;";
+    private static final String PACKINGLIST_INSERT_DEFAULT = "INSERT INTO PackingList VALUES " +
+            "(Essen, false)," +
+            "(Schnaps, false)," +
+            "(Zigaretten, false);";
     private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
     private static final String COUNTDOWN_CREATE = "CREATE TABLE IF NOT EXISTS CountdownTable" +
@@ -54,6 +58,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(COST_CREATE);
         db.execSQL(PACKINGLIST_CREATE);
+        db.execSQL(PACKINGLIST_INSERT_DEFAULT);
         db.execSQL(COUNTDOWN_CREATE);
     }
 
