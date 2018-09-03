@@ -6,7 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="new_costs">New Cost</string>
+    <string name="new_costs">Neue Kosten</string>
     <string name="name">Name</string>
     <string name="price">Preis</string>
     <string name="button">Button</string>
@@ -26,11 +26,12 @@
     <string name="hint_content_title">Name der neuen Ausgabe...</string>
     <string name="button_removeCost">Eintrag löschen</string>
     <string name="button_updateCost">Ausgabe hinzufügen</string>
-    <string name="packlist">Packlist</string>
+    <string name="packlist">Packliste</string>
     <string name="total_cost">Gesamtkosten</string>
     <string name="total_cost_price">Preis</string>
     <string name="your_current_total_cost">Deine bisherigen Ausgaben betragen:</string>
-    <string name="total_price">Total Price</string>
-    <string name="Weather">Weatherinfo</string>
-    <string name="insert_a_city">insert a city</string>
+    <string name="total_price">Gesamtpreis</string>
+    <string name="Weather">Wetterinfo</string>
+    <string name="insert_a_city">Gib eine Stadt ein...</string>
+    <string name="show_weather">Zeige mir das Wetter</string>
 </resources>

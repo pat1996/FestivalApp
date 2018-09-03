@@ -48,7 +48,7 @@
             android:id="@+id/weather_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show Weather"
+            android:text="@string/show_weather"
             android:layout_gravity="center"
 
             />

@@ -7,15 +7,15 @@
         <item
             android:id="@+id/nav_packlist"
             android:icon="@drawable/ic_packlist_24dp"
-            android:title="Packlist" />
+            android:title="Packliste" />
         <item
             android:id="@+id/nav_weather"
             android:icon="@drawable/ic_weather_24dp"
-            android:title="Weather" />
+            android:title="Wetter" />
         <item
             android:id="@+id/nav_cost"
             android:icon="@drawable/ic_cost_24dp"
-            android:title="Costs" />
+            android:title="Kosten" />
         <item
             android:id="@+id/nav_countdown"
             android:icon="@drawable/ic_countdown_24dp"
