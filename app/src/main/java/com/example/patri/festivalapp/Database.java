@@ -34,10 +34,10 @@ public class Database extends SQLiteOpenHelper {
             "Name TEXT," +
             "IsChecked BOOLEAN);";
     private static final String PACKINGLIST_SELECT = "SELECT * FROM PackingList;";
-    private static final String PACKINGLIST_INSERT_DEFAULT = "INSERT INTO PackingList VALUES " +
-            "(Essen, false)," +
-            "(Schnaps, false)," +
-            "(Zigaretten, false);";
+    private static final String PACKINGLIST_INSERT_DEFAULT = "INSERT INTO PackingList (Name, IsChecked) VALUES " +
+            "('Essen', 0)," +
+            "('Schnaps', 0)," +
+            "('Zigaretten', 0);";
     private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
     private static final String COUNTDOWN_CREATE = "CREATE TABLE IF NOT EXISTS CountdownTable" +
