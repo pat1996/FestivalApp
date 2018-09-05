@@ -5,16 +5,6 @@
     android:orientation="vertical"
     android:background="#EFEFFB">
 
-    <TextView
-        android:id="@+id/widget_viewOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/countdownViewOne"
-        android:textSize="15sp"
-        android:textAllCaps="true"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        />
 
     <TextView
         android:id="@+id/widget_text_view"
@@ -22,20 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/countdown_view"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textAllCaps="true"
         android:textAlignment="center"
         />
 
-    <TextView
-        android:id="@+id/widget_viewTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/countdownViewTwo"
-        android:textSize="15sp"
-        android:textAllCaps="true"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        />
 
 </LinearLayout>

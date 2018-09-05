@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainFestivalActivity"
-    tools:showIn="@layout/app_bar_main_festival">
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/new_countdown_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_new_countdown"
-        android:textAlignment="center"
-        android:textSize="10dp"
-        />
 
 
     <TextView
@@ -27,18 +14,28 @@
         android:textAlignment="center"
         android:text="@string/countdownViewOne"
         android:textSize="30sp"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="120dp"/>
 
     <TextView
         android:id="@+id/countdown_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:text="@string/countdown_view"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textSize="30sp"
+        android:textSize="50sp"
+        android:textColor="@color/colorAccent"
+        />
+    <TextView
+        android:id="@+id/countdownTimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/countdownTimer"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="20sp"
         android:textColor="@color/colorAccent"
         />
 
@@ -50,6 +47,17 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/new_countdown_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_countdown"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        />
 
 
 </LinearLayout>
