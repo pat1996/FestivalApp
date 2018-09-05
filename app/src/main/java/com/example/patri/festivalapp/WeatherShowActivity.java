@@ -108,7 +108,7 @@ public class WeatherShowActivity extends Activity {
                 int month = calendar.get(Calendar.MONTH) + 1;
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                String formatted_date = String.valueOf(day + "." + (month+1) + "." + year);
+                String formatted_date = String.valueOf(day + "." + month + "." + year);
                 data[3] = formatted_date;
 
                 urlConnection.disconnect();
