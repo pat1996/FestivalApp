@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class WeatherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -154,6 +155,10 @@ public class WeatherActivity extends AppCompatActivity
         Database db = MainFestivalActivity.getDb();
         db.insertIntoTable("WeatherTable", city);
 
+        if (cityString.isEmpty()) {
+            Toast.makeText(this, "Gib bitte eine Stadt ein!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent startWeatherEdit = new Intent(this,WeatherShowActivity.class);
         startActivity(startWeatherEdit);
     }
