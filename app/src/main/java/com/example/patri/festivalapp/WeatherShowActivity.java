@@ -88,7 +88,7 @@ public class WeatherShowActivity extends Activity {
                 JSONObject main = topLevel.getJSONObject("main");
                 weather = String.valueOf(main.getDouble("temp"));
                 double celsius = Double.parseDouble(weather) - 273.15;
-                celsius = Math.round(celsius);
+                int cel = Integer.parseInt(String.valueOf(Math.round(celsius)));
 
                 JSONObject jsonObjectCity = new JSONObject(builder.toString());
                 String city = jsonObjectCity.getString("name");
@@ -98,7 +98,7 @@ public class WeatherShowActivity extends Activity {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject weather1 = array.getJSONObject(i);
                     String description = weather1.getString("description");
-                    data[0] = String.valueOf(celsius);
+                    data[0] = String.valueOf(cel);
                     data[1] = city;
                     data[2] = description;
                 }
