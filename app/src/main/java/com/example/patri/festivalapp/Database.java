@@ -207,7 +207,7 @@ public class Database extends SQLiteOpenHelper {
         return cost;
     }
 
-    // Method to update a entry
+    // Method to update a cost entry
     public long updateEntry(int id, String name, double price) {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();
@@ -223,7 +223,7 @@ public class Database extends SQLiteOpenHelper {
         return db.update(TABLE_NAME, values, selection, selectionArgs);
     }
 
-    // Method to remove a entry
+    // Method to remove a cost entry
     public int removeEntry(int id) {
         Database cDB = new Database(context);
         SQLiteDatabase db = cDB.getWritableDatabase();
