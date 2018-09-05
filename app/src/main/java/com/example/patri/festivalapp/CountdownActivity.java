@@ -221,18 +221,6 @@ public class CountdownActivity extends AppCompatActivity
                 }
             }.start();
         }
-           /* int days = (int) (leftTime / (1000 * 60 * 60 * 24));
-            leftTime = leftTime % (1000 * 60 * 60 * 24);
-
-            int hour = (int) (leftTime / (1000 * 60 * 60));
-            leftTime = leftTime % (1000 * 60 * 60);
-
-            int min = (int) (leftTime / (1000 * 60));
-            leftTime = leftTime % (1000 * 60);
-
-            int sec = (int) (leftTime / 1000);
-
-            time = String.valueOf(days +":"+ hour +":"+ min +":"+ sec);*/
         }
 
 
