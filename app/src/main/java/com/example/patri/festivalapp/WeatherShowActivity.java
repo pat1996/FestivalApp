@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
+import android.text.InputFilter;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
@@ -85,6 +86,8 @@ public class WeatherShowActivity extends Activity {
                 JSONObject topLevel = new JSONObject(builder.toString());
                 JSONObject main = topLevel.getJSONObject("main");
                 weather = String.valueOf(main.getDouble("temp"));
+                double celsius = Double.parseDouble(weather) - 273.15;
+                celsius = Math.round(celsius);
 
                 JSONObject jsonObjectCity = new JSONObject(builder.toString());
                 String city = jsonObjectCity.getString("name");
@@ -94,7 +97,7 @@ public class WeatherShowActivity extends Activity {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject weather1 = array.getJSONObject(i);
                     String description = weather1.getString("description");
-                    data[0] = weather;
+                    data[0] = String.valueOf(celsius);
                     data[1] = city;
                     data[2] = description;
                 }
@@ -104,15 +107,8 @@ public class WeatherShowActivity extends Activity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                String formatted_date = String.valueOf(day + "." + month + "." + year);
+                String formatted_date = String.valueOf(day + "." + (month+1) + "." + year);
                 data[3] = formatted_date;
-
-                /*
-                double temp_int = Double.parseDouble(weather);
-                double conti = (temp_int - 32) /1.8000;
-                conti = Math.round(conti);
-                int i = (int)conti;
-                weatherDegree.setText(String.valueOf(i));*/
 
                 urlConnection.disconnect();
             } catch (IOException | JSONException e) {
@@ -123,18 +119,11 @@ public class WeatherShowActivity extends Activity {
 
         @Override
         protected void onPostExecute(String[] data) {
-            weatherDegree.setText(data[0]);
+            weatherDegree.setText(data[0] + "°");
             weatherCity.setText(data[1]);
             weatherDescription.setText(data[2]);
             weatherDate.setText(data[3]);
         }
-    }
-
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gestureObject.onTouchEvent(event);
-        return super.onTouchEvent(event);
     }
 
     private String getUrl() {
@@ -145,11 +134,18 @@ public class WeatherShowActivity extends Activity {
         res.moveToFirst();
 
         String city = res.getString(res.getColumnIndex("City"));
-
         url = url.replace("%CITY%", city);
 
         return url;
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gestureObject.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+
 
     class LearnGesture extends GestureDetector.SimpleOnGestureListener {
 
