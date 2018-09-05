@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
@@ -25,7 +26,7 @@ import java.util.Calendar;
 public class CountdownActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView countdownView;
+    TextView countdownView, timerView;
     Button addCountdown;
     private GestureDetectorCompat gestureObjectCOSTACTIVITY;
 
@@ -48,6 +49,7 @@ public class CountdownActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         countdownView = (TextView) findViewById(R.id.countdown_view);
+        timerView = (TextView) findViewById(R.id.countdownTimer);
         addCountdown = (Button) findViewById(R.id.new_countdown_btn);
 
         addCountdown.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +59,9 @@ public class CountdownActivity extends AppCompatActivity
             }
         });
 
-        Thread thread = new Thread() {
+        setUpCountdown();
+
+      /*  Thread thread = new Thread() {
 
             @Override
             public void run() {
@@ -82,6 +86,7 @@ public class CountdownActivity extends AppCompatActivity
         };
 
         thread.start();
+    }*/
     }
 
     @Override
@@ -173,7 +178,7 @@ public class CountdownActivity extends AppCompatActivity
         return true;
     }
 
-    public String calculateRemainingDays() {
+    public void setUpCountdown() {
         Database db = MainFestivalActivity.getDb();
         Cursor res = db.selectAllFromTable("CountdownTable");
 
@@ -186,24 +191,52 @@ public class CountdownActivity extends AppCompatActivity
             Calendar today = Calendar.getInstance();
             Calendar festivalDate = Calendar.getInstance();
             festivalDate.setTimeInMillis(res.getLong(index));
+            Calendar timeNow = Calendar.getInstance();
 
-            long diff = festivalDate.getTimeInMillis() - today.getTimeInMillis();
+            long offset = timeNow.get(Calendar.ZONE_OFFSET) + timeNow.get(Calendar.DST_OFFSET);
+            long timeSinceMidnight = (timeNow.getTimeInMillis() + offset) % (24 * 60 * 60 * 1000);
+            long leftTime = festivalDate.getTimeInMillis() - (today.getTimeInMillis()+timeSinceMidnight);
 
-            int days = (int) (diff / (1000 * 60 * 60 * 24));
-            diff = diff % (1000 * 60 * 60 * 24);
+            CountDownTimer countDownTimer = new CountDownTimer(leftTime, 1000) { //1 Sekunde
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    int days = (int) (millisUntilFinished / (1000 * 60 * 60 * 24));
+                    int hours = (int) (millisUntilFinished / (1000 * 60 * 60) % 24);
+                    int mins = (int) (millisUntilFinished / (1000 * 60) % 60);
+                    int secs = (int) (millisUntilFinished / (1000) % 60);
 
-            int hour = (int) (diff / (1000 * 60 * 60));
-            diff = diff % (1000 * 60 * 60);
+                    countdownView.setText((String.format("%d", days))+" "+"Tage");
+                    timerView.setText(String.format("%02d:%02d:%02d", hours, mins, secs));
 
-            int min = (int) (diff / (1000 * 60));
-            diff = diff % (1000 * 60);
 
-            int sec = (int) (diff / 1000);
 
-            time = String.valueOf(days +":"+ hour +":"+ min +":"+ sec);
+                    Intent widget = new Intent(getApplicationContext(),CountdownWidgetActivity.class);
+                    widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
+                    widget.putExtra("countdownWidget", "Nur noch "+ (String.format("%d", days))+" Tage bis zum Festival");
+                    sendBroadcast(widget);
+
+                    Intent mainActivity = new Intent()
+                }
+                @Override
+                public void onFinish() {
+
+                }
+            }.start();
         }
-        return time;
-    }
+           /* int days = (int) (leftTime / (1000 * 60 * 60 * 24));
+            leftTime = leftTime % (1000 * 60 * 60 * 24);
+
+            int hour = (int) (leftTime / (1000 * 60 * 60));
+            leftTime = leftTime % (1000 * 60 * 60);
+
+            int min = (int) (leftTime / (1000 * 60));
+            leftTime = leftTime % (1000 * 60);
+
+            int sec = (int) (leftTime / 1000);
+
+            time = String.valueOf(days +":"+ hour +":"+ min +":"+ sec);*/
+        }
+
 
     public void editCountdown() {
         Intent startCountdownEdit = new Intent(this, CalculateCountdownActivity.class);
