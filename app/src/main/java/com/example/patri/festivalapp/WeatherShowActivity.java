@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
@@ -104,7 +105,7 @@ public class WeatherShowActivity extends Activity {
 
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
+                int month = calendar.get(Calendar.MONTH) + 1;
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 String formatted_date = String.valueOf(day + "." + (month+1) + "." + year);
@@ -144,8 +145,6 @@ public class WeatherShowActivity extends Activity {
         this.gestureObject.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
-
-
 
     class LearnGesture extends GestureDetector.SimpleOnGestureListener {
 
