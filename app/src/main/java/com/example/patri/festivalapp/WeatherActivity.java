@@ -147,6 +147,13 @@ public class WeatherActivity extends AppCompatActivity
     }
 
     public void editWeather(){
+        String cityString = citysearch.getText().toString();
+        CityDB city = new CityDB();
+        city.setCity(cityString);
+
+        Database db = MainFestivalActivity.getDb();
+        db.insertIntoTable("WeatherTable", city);
+
         Intent startWeatherEdit = new Intent(this,WeatherShowActivity.class);
         startActivity(startWeatherEdit);
     }

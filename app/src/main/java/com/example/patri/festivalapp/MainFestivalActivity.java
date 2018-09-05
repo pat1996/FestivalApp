@@ -69,18 +69,6 @@ public class MainFestivalActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-//        System.out.print("Hallo: ");
-//        SettingsDB settings = new SettingsDB();
-//        settings.setUsername("Hallo");
-//        settings.setPassword("Hallo2");
-//        db.insertIntoTable("Settings", settings);
-//
-//        Cursor res = db.selectAllFromTable("Settings");
-//        res.moveToFirst();
-//        System.out.print("Hallo: ");
-//        System.out.println(res.getString(0));
     }
 
     @Override

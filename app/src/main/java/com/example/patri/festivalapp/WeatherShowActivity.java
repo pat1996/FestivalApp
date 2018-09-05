@@ -2,6 +2,7 @@ package com.example.patri.festivalapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -42,9 +43,7 @@ public class WeatherShowActivity extends Activity {
         weatherDegree = (TextView) findViewById(R.id.weather_degree);
         weatherDescription = (TextView) findViewById(R.id.weather_description);
 
-        String url = "https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=a054669249150807aa88528372b0e6b1";
-
-
+        String url = getUrl();
 
         new DownloadWeather(weatherDate, weatherCity, weatherDegree, weatherDescription).execute(url);
 
@@ -69,7 +68,7 @@ public class WeatherShowActivity extends Activity {
         @Override
         protected String[] doInBackground(String... strings) {
             String weather;
-            String[]data = new String[4];
+            String[] data = new String[4];
             try {
                 URL url = new URL(strings[0]);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -92,7 +91,7 @@ public class WeatherShowActivity extends Activity {
 
                 JSONObject jsonObject = new JSONObject(builder.toString());
                 JSONArray array = jsonObject.getJSONArray("weather");
-                for(int i = 0; i < array.length(); i++){
+                for (int i = 0; i < array.length(); i++) {
                     JSONObject weather1 = array.getJSONObject(i);
                     String description = weather1.getString("description");
                     data[0] = weather;
@@ -101,8 +100,11 @@ public class WeatherShowActivity extends Activity {
                 }
 
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
-                String formatted_date = sdf.format(calendar.getTime());
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                String formatted_date = String.valueOf(day + "." + month + "." + year);
                 data[3] = formatted_date;
 
                 /*
@@ -133,6 +135,20 @@ public class WeatherShowActivity extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
         this.gestureObject.onTouchEvent(event);
         return super.onTouchEvent(event);
+    }
+
+    private String getUrl() {
+        String url = "https://api.openweathermap.org/data/2.5/weather?q=%CITY%&appid=a054669249150807aa88528372b0e6b1";
+
+        Database db = MainFestivalActivity.getDb();
+        Cursor res = db.selectAllFromTable("WeatherTable");
+        res.moveToFirst();
+
+        String city = res.getString(res.getColumnIndex("City"));
+
+        url = url.replace("%CITY%", city);
+
+        return url;
     }
 
     class LearnGesture extends GestureDetector.SimpleOnGestureListener {

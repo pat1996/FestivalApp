@@ -46,6 +46,12 @@ public class Database extends SQLiteOpenHelper {
     private static final String COUNTDOWN_SELECT = "SELECT * FROM CountdownTable";
     private static final String COUNTDOWN_DROP = "DROP TABLE IF EXISTS CountdownTable";
 
+    private static final String WEATHER_CREATE = "CREATE TABLE IF NOT EXISTS WeatherTable" +
+            "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "City TEXT);";
+    private static final String WEATHER_SELECT = "SELECT * FROM WeatherTable";
+    private static final String WEATHER_DROP = "DROP TABLE IF EXISTS WeatherTable";
+
 
     private Context context;
 
@@ -60,6 +66,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(PACKINGLIST_CREATE);
         db.execSQL(PACKINGLIST_INSERT_DEFAULT);
         db.execSQL(COUNTDOWN_CREATE);
+        db.execSQL(WEATHER_CREATE);
     }
 
     @Override
@@ -71,11 +78,16 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues objectTable = convertObjectIntoContentValues(object);
 
-        //Damit immer nur ein Datum für das nächste Festival in der Tabelle steht
+        //Damit immer nur ein Datum bzw. eine Stadt für das nächste Festival in der Tabelle steht
         if(table.equals("CountdownTable"))
         {
             db.execSQL(COUNTDOWN_DROP);
             db.execSQL(COUNTDOWN_CREATE);
+        }
+        if(table.equals("WeatherTable"))
+        {
+            db.execSQL(WEATHER_DROP);
+            db.execSQL(WEATHER_CREATE);
         }
 
         db.insert(table, null, objectTable);
@@ -93,6 +105,9 @@ public class Database extends SQLiteOpenHelper {
                 break;
             case "CountdownTable":
                 res = db.rawQuery(COUNTDOWN_SELECT, null);
+                break;
+            case "WeatherTable":
+                res = db.rawQuery(WEATHER_SELECT, null);
                 break;
         }
         return res;
@@ -120,6 +135,10 @@ public class Database extends SQLiteOpenHelper {
             case "GregorianCalendar":
                 Calendar date = (Calendar) object;
                 content.put("festivalDate", date.getTimeInMillis());
+                break;
+            case "CityDB":
+                CityDB city = (CityDB) object;
+                content.put("City", city.getCity());
                 break;
         }
         return content;
