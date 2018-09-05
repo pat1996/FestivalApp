@@ -209,13 +209,11 @@ public class CountdownActivity extends AppCompatActivity
                     timerView.setText(String.format("%02d:%02d:%02d", hours, mins, secs));
 
 
-
                     Intent widget = new Intent(getApplicationContext(),CountdownWidgetActivity.class);
                     widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
                     widget.putExtra("countdownWidget", "Nur noch "+ (String.format("%d", days))+" Tage bis zum Festival");
                     sendBroadcast(widget);
 
-                   // Intent mainActivity = new Intent()
                 }
                 @Override
                 public void onFinish() {
