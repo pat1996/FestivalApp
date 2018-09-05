@@ -34,4 +34,9 @@
     <string name="Weather">Wetterinfo</string>
     <string name="insert_a_city">Gib eine Stadt ein...</string>
     <string name="show_weather">Zeige mir das Wetter</string>
+    <string name="current_weather">Aktuelles Wetter</string>
+    <string name="date">Datum</string>
+    <string name="city">Stadt</string>
+    <string name="celsius">Grad°</string>
+    <string name="description">Beschreibung</string>
 </resources>
