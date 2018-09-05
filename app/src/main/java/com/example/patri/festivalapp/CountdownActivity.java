@@ -215,7 +215,7 @@ public class CountdownActivity extends AppCompatActivity
                     widget.putExtra("countdownWidget", "Nur noch "+ (String.format("%d", days))+" Tage bis zum Festival");
                     sendBroadcast(widget);
 
-                    Intent mainActivity = new Intent()
+                   // Intent mainActivity = new Intent()
                 }
                 @Override
                 public void onFinish() {
