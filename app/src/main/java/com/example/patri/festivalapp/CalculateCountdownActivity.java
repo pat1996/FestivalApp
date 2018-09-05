@@ -31,14 +31,34 @@ public class CalculateCountdownActivity extends Activity {
         gestureObject = new GestureDetectorCompat(this, new LearnGesture());
 
         startCountdown = (Button) findViewById(R.id.start_countdown_btn);
+        enterDay = (EditText) findViewById(R.id.day_edit);
+        enterMonth = (EditText) findViewById(R.id.month_edit);
+        enterYear = (EditText) findViewById(R.id.year_edit);
 
         startCountdown.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-             setCountdown();
-             setWidget();
+                if (enterYear.getText().toString().isEmpty() || enterMonth.getText().toString().isEmpty() || enterDay.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Du hast nicht alles korrekt ausgefüllt",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (getFestivalYear()<2017){
+                    Toast.makeText(getApplicationContext(),"Du musst das Jahr korrekt und vollständig ausfüllen",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (getFestivalDay()>31){
+                    Toast.makeText(getApplicationContext(),"Du musst den Tag korrekt ausfüllen",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (getFestivalMonth()>12){
+                    Toast.makeText(getApplicationContext(),"Du musst den Monat korrekt ausfüllen",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                 setCountdown();
+             //setWidget();
 
             //Toast.makeText(CalculateCountdownActivity.this,"Du hast nicht alles ausgefüllt",Toast.LENGTH_LONG).show();
                 //MIT TRY CATCH??
@@ -51,19 +71,19 @@ public class CalculateCountdownActivity extends Activity {
     //Getter und Setter
 
     public int getFestivalDay() {
-        enterDay = (EditText) findViewById(R.id.day_edit);
+
         int day = Integer.parseInt(enterDay.getText().toString());
         return day;
     }
 
     public int getFestivalMonth() {
-        enterMonth = (EditText) findViewById(R.id.month_edit);
+
         int month = Integer.parseInt(enterMonth.getText().toString());
         return month;
     }
 
     public int getFestivalYear() {
-        enterYear = (EditText) findViewById(R.id.year_edit);
+
         int year = Integer.parseInt(enterYear.getText().toString());
 
         return year;
@@ -111,13 +131,13 @@ public class CalculateCountdownActivity extends Activity {
         startActivity(intentCountdown);
     }
 
-    public void setWidget(){
+   /* public void setWidget(){
 
         Intent widget = new Intent(getApplicationContext(),CountdownWidgetActivity.class);
         widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
         widget.putExtra("countdownWidget", getRemainingDays());
         sendBroadcast(widget);
-    }
+    }*/
 
     @Override
     public boolean onTouchEvent(MotionEvent event){

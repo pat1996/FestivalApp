@@ -26,6 +26,8 @@ import java.util.ArrayList;
 public class MainFestivalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView countdownMain;
+
     private static Database db;
 
     public static Database getDb() {
@@ -69,6 +71,7 @@ public class MainFestivalActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
