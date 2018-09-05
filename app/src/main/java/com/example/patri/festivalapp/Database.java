@@ -35,9 +35,60 @@ public class Database extends SQLiteOpenHelper {
             "IsChecked BOOLEAN);";
     private static final String PACKINGLIST_SELECT = "SELECT * FROM PackingList;";
     private static final String PACKINGLIST_INSERT_DEFAULT = "INSERT INTO PackingList (Name, IsChecked) VALUES " +
-            "('Essen', 0)," +
-            "('Schnaps', 0)," +
-            "('Zigaretten', 0);";
+            "('Ticket', 0)," +
+            "('Dosenravioli', 0)," +
+            "('Grillfleisch', 0)," +
+            "('Zigaretten', 0),"+
+            "('Dosenravioli', 0)," +
+            "('Kekse', 0)," +
+            "('Muesli', 0)," +
+            "('Milchbrötchen', 0)," +
+            "('Nutella', 0)," +
+            "('Salzstangen', 0)," +
+            "('Erdnuesse', 0)," +
+            "('Milch', 0)," +
+            "('Asbach', 0)," +
+            "('Havana', 0)," +
+            "('Cola', 0)," +
+            "('Goas-Mass', 0)," +
+            "('Vodka-Lemon', 0)," +
+            "('Apple Cider', 0)," +
+            "('Wein', 0)," +
+            "('Bier', 0)," +
+            "('Wasser', 0)," +
+            "('Hugo', 0)," +
+            "('43er Schnaps', 0)," +
+            "('Duschgel', 0)," +
+            "('Handtuch', 0)," +
+            "('Zahnpasta', 0)," +
+            "('Zahnbürste', 0)," +
+            "('Kamm', 0)," +
+            "('Socken', 0)," +
+            "('Unterhosen', 0)," +
+            "('T-Shirt', 0)," +
+            "('Hosen, lang', 0)," +
+            "('Hosen, kurz', 0)," +
+            "('Regenschirm', 0)," +
+            "('Hut', 0)," +
+            "('Sonnenbrille', 0)," +
+            "('Muetze', 0)," +
+            "('Capmingstuhl', 0)," +
+            "('Zelt', 0)," +
+            "('Schlafsack', 0)," +
+            "('Decke', 0)," +
+            "('Kissen', 0)," +
+            "('Messer', 0)," +
+            "('Gabel', 0)," +
+            "('Teller', 0)," +
+            "('Topf', 0)," +
+            "('Powerbank', 0)," +
+            "('Tisch', 0)," +
+            "('Pavilion', 0)," +
+            "('Gaskocher', 0)," +
+            "('Grill', 0)," +
+            "('Grillkohle', 0)" ;
+
+
     private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
     private static final String COUNTDOWN_CREATE = "CREATE TABLE IF NOT EXISTS CountdownTable" +
