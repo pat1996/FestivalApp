@@ -74,7 +74,7 @@ public class CountdownActivity extends AppCompatActivity
                                 sendBroadcast(updateWidget);
                             }
                         });
-                        Thread.sleep(1800000);
+                        Thread.sleep(1000);
                     }
                 } catch (InterruptedException e) {
                 }
@@ -173,13 +173,13 @@ public class CountdownActivity extends AppCompatActivity
         return true;
     }
 
-    public int calculateRemainingDays() {
+    public String calculateRemainingDays() {
         Database db = MainFestivalActivity.getDb();
         Cursor res = db.selectAllFromTable("CountdownTable");
 
         res.moveToFirst();
 
-        int days = 0;
+        String time = "0";
         int index = res.getColumnIndex("festivalDate");
 
         if (res.getCount() != 0) {
@@ -188,9 +188,21 @@ public class CountdownActivity extends AppCompatActivity
             festivalDate.setTimeInMillis(res.getLong(index));
 
             long diff = festivalDate.getTimeInMillis() - today.getTimeInMillis();
-            days = (int) (diff / (1000 * 60 * 60 * 24));
+
+            int days = (int) (diff / (1000 * 60 * 60 * 24));
+            diff = diff % (1000 * 60 * 60 * 24);
+
+            int hour = (int) (diff / (1000 * 60 * 60));
+            diff = diff % (1000 * 60 * 60);
+
+            int min = (int) (diff / (1000 * 60));
+            diff = diff % (1000 * 60);
+
+            int sec = (int) (diff / 1000);
+
+            time = String.valueOf(days +":"+ hour +":"+ min +":"+ sec);
         }
-        return days;
+        return time;
     }
 
     public void editCountdown() {
