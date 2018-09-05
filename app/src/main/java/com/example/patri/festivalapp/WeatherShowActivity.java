@@ -24,8 +24,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static android.provider.UserDictionary.Words.APP_ID;
-
 public class WeatherShowActivity extends Activity {
 
     private GestureDetectorCompat gestureObject;
@@ -52,7 +50,7 @@ public class WeatherShowActivity extends Activity {
 
     }
 
-    class DownloadWeather extends AsyncTask<String, Void, String> {
+    class DownloadWeather extends AsyncTask<String, Void, String[]> {
 
         private TextView weatherDate, weatherCity, weatherDegree, weatherDescription;
 
@@ -69,8 +67,9 @@ public class WeatherShowActivity extends Activity {
         }
 
         @Override
-        protected String doInBackground(String... strings) {
-            String weather = "UNDEFINED";
+        protected String[] doInBackground(String... strings) {
+            String weather;
+            String[]data = new String[4];
             try {
                 URL url = new URL(strings[0]);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -88,23 +87,26 @@ public class WeatherShowActivity extends Activity {
                 JSONObject main = topLevel.getJSONObject("main");
                 weather = String.valueOf(main.getDouble("temp"));
 
+                JSONObject jsonObjectCity = new JSONObject(builder.toString());
+                String city = jsonObjectCity.getString("name");
+
                 JSONObject jsonObject = new JSONObject(builder.toString());
                 JSONArray array = jsonObject.getJSONArray("weather");
-
-                String temp = String.valueOf(jsonObject.getDouble("temp"));
-                String city = jsonObject.getString("name");
-                String description = jsonObject.getString("description");
-
-                weatherDegree.setText(temp);
-                weatherCity.setText(city);
-                weatherDescription.setText(description);
+                for(int i = 0; i < array.length(); i++){
+                    JSONObject weather1 = array.getJSONObject(i);
+                    String description = weather1.getString("description");
+                    data[0] = weather;
+                    data[1] = city;
+                    data[2] = description;
+                }
 
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-TT");
+                SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
                 String formatted_date = sdf.format(calendar.getTime());
-                weatherDate.setText(formatted_date);
+                data[3] = formatted_date;
 
-                /*double temp_int = Double.parseDouble(temp);
+                /*
+                double temp_int = Double.parseDouble(weather);
                 double conti = (temp_int - 32) /1.8000;
                 conti = Math.round(conti);
                 int i = (int)conti;
@@ -114,19 +116,17 @@ public class WeatherShowActivity extends Activity {
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            return weather;
+            return data;
         }
 
         @Override
-        protected void onPostExecute(String temp) {
-            weatherDegree.setText(temp);
+        protected void onPostExecute(String[] data) {
+            weatherDegree.setText(data[0]);
+            weatherCity.setText(data[1]);
+            weatherDescription.setText(data[2]);
+            weatherDate.setText(data[3]);
         }
-
     }
-
-
-
-
 
 
     @Override
