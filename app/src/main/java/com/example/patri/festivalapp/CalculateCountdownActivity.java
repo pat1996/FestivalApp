@@ -132,7 +132,7 @@ public class CalculateCountdownActivity extends Activity {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
 
             if(e2.getX() < (e1.getX() - minStep)){
-                Intent intent = new Intent(CalculateCountdownActivity.this, MainFestivalActivity.class);
+                Intent intent = new Intent(CalculateCountdownActivity.this, CountdownActivity.class);
                 finish();
                 startActivity(intent);
             }
