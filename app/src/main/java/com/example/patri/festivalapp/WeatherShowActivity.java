@@ -154,7 +154,7 @@ public class WeatherShowActivity extends Activity {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY) {
 
             if (e2.getX() < (e1.getX() - minStep)) {
-                Intent intent = new Intent(WeatherShowActivity.this, MainFestivalActivity.class);
+                Intent intent = new Intent(WeatherShowActivity.this, WeatherActivity.class);
                 finish();
                 startActivity(intent);
             }

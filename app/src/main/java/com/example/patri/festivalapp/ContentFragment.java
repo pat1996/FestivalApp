@@ -85,14 +85,11 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "Fehler, es wurde nichts gelöscht!", Toast.LENGTH_SHORT).show();
         }
         mCost = null;
-        emptyContentView();
         // Switch back to list fragment if we are in one fragment layout
         CostList costList =
                 (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
         if (costList == null) {
             Intent loadMainViewIntent = new Intent(getActivity(), CostActivity.class);
-            loadMainViewIntent.putExtra(CostActivity.INTENT_ITEM_SELECTED_NAME,
-                    CostActivity.INTENT_ITEM_SELECTED_ID);
             startActivity(loadMainViewIntent);
         }
     }
@@ -131,6 +128,13 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
                 newCost = false;
                 Toast.makeText(getActivity(), "Ausgabe hinzugefügt!", Toast.LENGTH_SHORT).show();
             }
+            // Switch back to list fragment if we are in one fragment layout
+            CostList costList =
+                    (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
+            if (costList == null) {
+                Intent loadMainViewIntent = new Intent(getActivity(), CostActivity.class);
+                startActivity(loadMainViewIntent);
+            }
             // Update the current entry
         } else {
             status = new Database(getActivity()).updateEntry(mCost.getId(), name, Double.parseDouble(price));
@@ -138,6 +142,13 @@ public class ContentFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "Fehler beim Hinzufügen deiner Ausgabe!", Toast.LENGTH_SHORT).show();
             } else if (status >= 0) {
                 Toast.makeText(getActivity(), "Ausgabe aktualisiert!", Toast.LENGTH_SHORT).show();
+            }
+            // Switch back to list fragment if we are in one fragment layout
+            CostList costList =
+                    (CostList) getFragmentManager().findFragmentById(R.id.fragment_list);
+            if (costList == null) {
+                Intent loadMainViewIntent = new Intent(getActivity(), CostActivity.class);
+                startActivity(loadMainViewIntent);
             }
         }
     }
