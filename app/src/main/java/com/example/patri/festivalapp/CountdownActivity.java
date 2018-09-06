@@ -170,32 +170,28 @@ public class CountdownActivity extends AppCompatActivity
             Intent i = new Intent(this, CostActivity.class);
             this.finish();
             startActivity(i);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+        }
 
     public void setUpCountdown() {
-        Database db = MainFestivalActivity.getDb();
+       /* Database db = MainFestivalActivity.getDb();
         Cursor res = db.selectAllFromTable("CountdownTable");
-
         res.moveToFirst();
+        int index = res.getColumnIndex("festivalDate");*/
 
-        String time = "0";
-        int index = res.getColumnIndex("festivalDate");
-
-        if (res.getCount() != 0) {
-            Calendar today = Calendar.getInstance();
+        if (getTimeToFestival() != 0) {
+            /*Calendar today = Calendar.getInstance();
             Calendar festivalDate = Calendar.getInstance();
             festivalDate.setTimeInMillis(res.getLong(index));
             Calendar timeNow = Calendar.getInstance();
-
             long offset = timeNow.get(Calendar.ZONE_OFFSET) + timeNow.get(Calendar.DST_OFFSET);
             long timeSinceMidnight = (timeNow.getTimeInMillis() + offset) % (24 * 60 * 60 * 1000);
-            long leftTime = festivalDate.getTimeInMillis() - (today.getTimeInMillis()+timeSinceMidnight);
+            long leftTime = festivalDate.getTimeInMillis() - (today.getTimeInMillis()+timeSinceMidnight);*/
+            long leftTime = getTimeToFestival();
 
             CountDownTimer countDownTimer = new CountDownTimer(leftTime, 1000) { //1 Sekunde
                 @Override
@@ -213,7 +209,6 @@ public class CountdownActivity extends AppCompatActivity
                     widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
                     widget.putExtra("countdownWidget", "Nur noch "+ (String.format("%d", days))+" Tage bis zum Festival");
                     sendBroadcast(widget);
-
                 }
                 @Override
                 public void onFinish() {
@@ -223,6 +218,14 @@ public class CountdownActivity extends AppCompatActivity
         }
         }
 
+
+    private long getTimeToFestival(){
+        Database db = MainFestivalActivity.getDb();
+        Cursor res = db.selectAllFromTable("CountdownTable");
+        res.moveToFirst();
+        long daysLeft = res.getLong(res.getColumnIndex("festivalDaysLeft"));
+        return daysLeft;
+    }
 
     public void editCountdown() {
         Intent startCountdownEdit = new Intent(this, CalculateCountdownActivity.class);

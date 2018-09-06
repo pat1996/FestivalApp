@@ -215,9 +215,9 @@ public class Database extends SQLiteOpenHelper {
                 content.put("Name", packingListItem.getName());
                 content.put("IsChecked", packingListItem.isChecked());
                 break;
-            case "GregorianCalendar":
-                Calendar date = (Calendar) object;
-                content.put("festivalDate", date.getTimeInMillis());
+            case "TimeLong":
+                long leftTime = (long) object;
+                content.put("festivalDate", leftTime);
                 break;
             case "CityDB":
                 CityDB city = (CityDB) object;

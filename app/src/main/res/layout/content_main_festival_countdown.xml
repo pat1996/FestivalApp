@@ -55,7 +55,7 @@
         android:text="@string/add_new_countdown"
         android:textAlignment="center"
         android:textSize="10sp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
         />
 
