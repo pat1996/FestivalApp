@@ -6,6 +6,16 @@
     android:orientation="vertical">
 
 
+    <Button
+        android:id="@+id/new_countdown_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_countdown"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"
+        />
 
     <TextView
         android:id="@+id/countdown_viewOne"
@@ -14,13 +24,12 @@
         android:textAlignment="center"
         android:text="@string/countdownViewOne"
         android:textSize="30sp"
-        android:layout_marginTop="120dp"/>
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/countdown_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="@string/countdown_view"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -48,16 +57,7 @@
         android:textAllCaps="true"
         android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/new_countdown_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_new_countdown"
-        android:textAlignment="center"
-        android:textSize="10sp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        />
+
 
 
 </LinearLayout>

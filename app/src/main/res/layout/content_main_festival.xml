@@ -29,7 +29,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
+    <TextView
+        android:id="@+id/main_countdownView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/countdown_viewWidget"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"/>
 
 </android.support.constraint.ConstraintLayout>
 

@@ -97,7 +97,7 @@ public class CalculateCountdownActivity extends Activity {
 
     }
 
-   private long getRemainingDays() {
+   private long getRemainingDays() {  //calculates the remaining days / the remaining time in milliseconds
        Calendar today= Calendar.getInstance();
        Calendar festivalDate = getFestivalDate();
        Calendar timeNow = Calendar.getInstance();
@@ -111,46 +111,12 @@ public class CalculateCountdownActivity extends Activity {
    }
 
 
-    public void saveFestivalDate() {
-
-        long leftTimeToFestival = getRemainingDays();
-        Database db = MainFestivalActivity.getDb();
-        db.insertIntoTable("CountdownTable", leftTimeToFestival);
-        /*Calendar festival = Calendar.getInstance();
-
-        festival.set(Calendar.YEAR, getFestivalYear());
-        festival.set(Calendar.MONTH, getFestivalMonth() - 1);
-        festival.set(Calendar.DATE, getFestivalDay()+1);
-
-        Database db = MainFestivalActivity.getDb();
-        db.insertIntoTable("CountdownTable", festival);*/
-    }
-
-    public long readFestivalDate() {
-
-        Database db = MainFestivalActivity.getDb();
-        Cursor res = db.selectAllFromTable("CountdownTable");
-        res.moveToFirst();
-        long timeToFestival = res.getLong(res.getColumnIndex("festivalDate"));
-
-        return timeToFestival;
-
-    }
-
-    public void setCountdown() {
+    public void setCountdown() { //starts the countdownActivity
 
         Intent intentCountdown = new Intent(getApplicationContext(), CountdownActivity.class);
         this.finish();
         startActivity(intentCountdown);
     }
-
-   /* public void setWidget(){
-
-        Intent widget = new Intent(getApplicationContext(),CountdownWidgetActivity.class);
-        widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
-        widget.putExtra("countdownWidget", getRemainingDays());
-        sendBroadcast(widget);
-    }*/
 
     @Override
     public boolean onTouchEvent(MotionEvent event){

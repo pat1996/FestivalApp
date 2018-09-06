@@ -27,8 +27,8 @@ import java.util.TimeZone;
 public class CountdownActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView countdownView, timerView;
-    Button addCountdown;
+    private TextView countdownView, timerView, countdownTextOne, countdownTextTwo;
+    private Button addCountdown;
     private GestureDetectorCompat gestureObjectCOSTACTIVITY;
 
 
@@ -51,6 +51,8 @@ public class CountdownActivity extends AppCompatActivity
 
         countdownView = (TextView) findViewById(R.id.countdown_view);
         timerView = (TextView) findViewById(R.id.countdownTimer);
+        countdownTextOne=(TextView)findViewById(R.id.countdown_viewOne);
+        countdownTextTwo=(TextView)findViewById(R.id.countdown_viewTwo);
         addCountdown = (Button) findViewById(R.id.new_countdown_btn);
 
         addCountdown.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +62,7 @@ public class CountdownActivity extends AppCompatActivity
             }
         });
 
-        setUpCountdown();
+        setUpCountdown(); //starts the countdown
     }
 
     @Override
@@ -151,6 +153,9 @@ public class CountdownActivity extends AppCompatActivity
         return true;
     }
 
+    //gets the left time from the database
+    // calculates the left days, hours, minutes and seconds
+    // sets up the widget and the TextView to display the left days
     public void setUpCountdown() {
         if (getFestivalDate() != 0) {
             long festivalDate = getFestivalDate();
@@ -169,7 +174,7 @@ public class CountdownActivity extends AppCompatActivity
                     timerView.setText(String.format("%02d:%02d:%02d", hours, mins, secs));
 
 
-                    Intent widget = new Intent(getApplicationContext(), CountdownWidgetActivity.class);
+                   Intent widget = new Intent(getApplicationContext(), CountdownWidgetActivity.class);
                     widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
                     widget.putExtra("countdownWidget", "Nur noch " + (String.format("%d", days)) + " Tage bis zum Festival");
                     sendBroadcast(widget);
@@ -177,13 +182,16 @@ public class CountdownActivity extends AppCompatActivity
 
                 @Override
                 public void onFinish() {
+                    countdownTextOne.setText("Hurra!!");
+                    countdownView.setText("Heute");
+                    countdownTextTwo.setText("ist das Festival");
 
                 }
             }.start();
         }
     }
 
-
+    // extracts the festival date
     private long getFestivalDate() {
         long daysLeft = 0;
         Database db = MainFestivalActivity.getDb();
@@ -194,10 +202,11 @@ public class CountdownActivity extends AppCompatActivity
         }
         return daysLeft;
     }
-
+        // starts the CalculateCountdownActivity
     public void editCountdown() {
         Intent startCountdownEdit = new Intent(this, CalculateCountdownActivity.class);
         startActivity(startCountdownEdit);
     }
+
 
 }

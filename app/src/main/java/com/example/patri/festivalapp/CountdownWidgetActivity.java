@@ -24,10 +24,6 @@ public class CountdownWidgetActivity extends AppWidgetProvider {
             rViews.setTextViewText(R.id.widget_text_view,daysInWidget);
             updateWidget(context,rViews);
 
-        } else if (intent.hasExtra("newNumDaysWidget")){
-            daysInWidget=intent.getStringExtra("newNumDaysWidget");
-            rViews.setTextViewText(R.id.widget_text_view,daysInWidget);
-            updateWidget(context,rViews);
         }
         super.onReceive(context,intent);
     }

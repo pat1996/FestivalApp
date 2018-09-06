@@ -22,6 +22,7 @@
     <string name="current_date">Current Date</string>
     <string name="countdownViewOne">Nur noch </string>
     <string name="countdownViewTwo"> bis zum Festival</string>
+    <string name="countdown_viewWidget">Bald geht es los!</string>
     <string name="enterHelp">Fülle das Datum so aus: 01-01-2018</string>
     <string name="hint_content_text">Preis der neuen Ausgabe...</string>
     <string name="hint_content_title">Name der neuen Ausgabe...</string>

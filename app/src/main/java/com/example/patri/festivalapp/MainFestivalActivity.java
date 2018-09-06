@@ -1,9 +1,11 @@
 package com.example.patri.festivalapp;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
@@ -22,13 +24,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class MainFestivalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView countdownMain;
+
+
 
     private static Database db;
+    private TextView countdownMain;
 
     public static Database getDb() {
         return db;
@@ -71,6 +77,12 @@ public class MainFestivalActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        countdownMain=(TextView)findViewById(R.id.main_countdownView);
+
+
+        setUpWidgetNew();
+
 
     }
 
@@ -126,5 +138,48 @@ public class MainFestivalActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    //set up of the widget directly in the MainApp so it is always up to date
+    // set up of the main app countdown
+    private void setUpWidgetNew () {
+        if (getFestivalDate() != 0) {
+            long festivalDate = getFestivalDate();
+            Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"));
+            long leftTime = festivalDate - today.getTimeInMillis();
+
+            CountDownTimer countDownTimer = new CountDownTimer(leftTime, 1000) { //1 Sekunde
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    int days = (int) (millisUntilFinished / (1000 * 60 * 60 * 24));
+
+                    countdownMain.setText("Nur noch " + (String.format("%d", days)) + " Tage bis zum Festival");
+
+                    Intent widget = new Intent(getApplicationContext(), CountdownWidgetActivity.class);
+                    widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
+                    widget.putExtra("countdownWidget", "Nur noch " + (String.format("%d", days)) + " Tage bis zum Festival");
+                    sendBroadcast(widget);
+                }
+
+                @Override
+                public void onFinish() {
+
+                    countdownMain.setText("Das Festival ist heute!!"); //When the countdown is finished
+
+                }
+            }.start();
+        }
+    }
+
+
+    // extracts the festival date
+    private long getFestivalDate() {
+        long daysLeft = 0;
+        Database db = MainFestivalActivity.getDb();
+        Cursor res = db.selectAllFromTable("CountdownTable");
+        res.moveToFirst();
+        if (res.getCount() != 0) {
+            daysLeft = res.getLong(res.getColumnIndex("festivalDate"));
+        }
+        return daysLeft;
     }
 }
