@@ -10,11 +10,7 @@ public class PackingListItemDB {
 
 
 
-   // public PackingListItemDB(String s, boolean b) {
-    //    this.name = s;
-      //  this.isChecked = b;
 
-//    }
 
 
     public int getId() {
