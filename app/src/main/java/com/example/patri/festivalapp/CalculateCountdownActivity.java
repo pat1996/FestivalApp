@@ -21,7 +21,7 @@ public class CalculateCountdownActivity extends Activity {
     private GestureDetectorCompat gestureObject;
     private EditText enterDay, enterMonth, enterYear;
     private Button startCountdown;
-    private String emptyField = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class CalculateCountdownActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-
+                // makes sure everything is filled in correctly
                 if (enterYear.getText().toString().isEmpty() || enterMonth.getText().toString().isEmpty() || enterDay.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Du hast nicht alles korrekt ausgefüllt",Toast.LENGTH_LONG).show();
                     return;
@@ -58,11 +58,6 @@ public class CalculateCountdownActivity extends Activity {
                 }
 
                  setCountdown();
-             //setWidget();
-
-            //Toast.makeText(CalculateCountdownActivity.this,"Du hast nicht alles ausgefüllt",Toast.LENGTH_LONG).show();
-                //MIT TRY CATCH??
-
             }
         });
 
@@ -71,62 +66,72 @@ public class CalculateCountdownActivity extends Activity {
     //Getter und Setter
 
     public int getFestivalDay() {
-
         int day = Integer.parseInt(enterDay.getText().toString());
         return day;
     }
 
     public int getFestivalMonth() {
-
         int month = Integer.parseInt(enterMonth.getText().toString());
         return month;
     }
 
     public int getFestivalYear() {
-
         int year = Integer.parseInt(enterYear.getText().toString());
-
         return year;
     }
+        //Build up a date-object out of the informations of the editTexts
+    private Calendar getFestivalDate (){
+        Calendar festival = Calendar.getInstance();
+        festival.set(Calendar.YEAR, getFestivalYear());
+        festival.set(Calendar.MONTH, getFestivalMonth()-1);
+        festival.set(Calendar.DATE, getFestivalDay()+1); //+1 so the countdown does not show 0 on the last day before the festival
+        return festival;
 
-    public String getRemainingDays() {
-        saveFestivalDate();
-        Calendar today = Calendar.getInstance();
-        Calendar festivalDate = readFestivalDate();
-
-        long diff = festivalDate.getTimeInMillis() - today.getTimeInMillis();
-        int days = (int) (diff / (1000 * 60 * 60 * 24));
-
-        return Integer.toString(days);
     }
 
+   private long getRemainingDays() {
+       Calendar today= Calendar.getInstance();
+       Calendar festivalDate = getFestivalDate();
+       Calendar timeNow = Calendar.getInstance();
+
+       long offset = timeNow.get(Calendar.ZONE_OFFSET) + timeNow.get(Calendar.DST_OFFSET);
+
+       long timeSinceMidnight = (timeNow.getTimeInMillis() + offset) % (24 * 60 * 60 * 1000);
+
+       long remainingDays = festivalDate.getTimeInMillis() - (today.getTimeInMillis()+timeSinceMidnight);
+       return remainingDays;
+   }
+
+
     public void saveFestivalDate() {
-        Calendar festival = Calendar.getInstance();
+
+        long leftTimeToFestival = getRemainingDays();
+        Database db = MainFestivalActivity.getDb();
+        db.insertIntoTable("CountdownTable", leftTimeToFestival);
+        /*Calendar festival = Calendar.getInstance();
 
         festival.set(Calendar.YEAR, getFestivalYear());
         festival.set(Calendar.MONTH, getFestivalMonth() - 1);
         festival.set(Calendar.DATE, getFestivalDay()+1);
 
         Database db = MainFestivalActivity.getDb();
-        db.insertIntoTable("CountdownTable", festival);
+        db.insertIntoTable("CountdownTable", festival);*/
     }
 
-    public Calendar readFestivalDate() {
-        Calendar festival = Calendar.getInstance();
-        Database db = MainFestivalActivity.getDb();
+    public long readFestivalDate() {
 
+        Database db = MainFestivalActivity.getDb();
         Cursor res = db.selectAllFromTable("CountdownTable");
         res.moveToFirst();
+        long timeToFestival = res.getLong(res.getColumnIndex("festivalDate"));
 
-        festival.setTimeInMillis(res.getLong(res.getColumnIndex("festivalDate")));
-
-        return festival;
+        return timeToFestival;
 
     }
 
     public void setCountdown() {
         Intent intentCountdown = new Intent(getApplicationContext(), CountdownActivity.class);
-        intentCountdown.putExtra("countingDays", getRemainingDays());
+        //intentCountdown.putExtra("countingDays", getRemainingDays());
         this.finish();
         startActivity(intentCountdown);
     }
