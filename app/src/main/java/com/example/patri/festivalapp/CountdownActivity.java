@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class CountdownActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,55 +61,28 @@ public class CountdownActivity extends AppCompatActivity
         });
 
         setUpCountdown();
-
-      /*  Thread thread = new Thread() {
-
-            @Override
-            public void run() {
-                try {
-                    while (!this.isInterrupted()) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                String newNumberOfDays = calculateRemainingDays()+" "+"Tage";
-                                countdownView.setText(newNumberOfDays);
-                                Intent updateWidget = new Intent(getApplicationContext(), CountdownWidgetActivity.class);
-                                updateWidget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
-                                updateWidget.putExtra("newNumDaysWidget", newNumberOfDays);
-                                sendBroadcast(updateWidget);
-                            }
-                        });
-                        Thread.sleep(1000);
-                    }
-                } catch (InterruptedException e) {
-                }
-            }
-        };
-
-        thread.start();
-    }*/
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        onTouchEvent( event);
+        onTouchEvent(event);
         return super.dispatchTouchEvent(event);
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
         this.gestureObjectCOSTACTIVITY.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
 
-    class LearnGesture extends GestureDetector.SimpleOnGestureListener{
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener {
 
-        int minStep=500;
+        int minStep = 500;
 
         @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY) {
 
-            if(e2.getX() < (e1.getX() - minStep)){
+            if (e2.getX() < (e1.getX() - minStep)) {
                 Intent intent = new Intent(CountdownActivity.this, MainFestivalActivity.class);
                 finish();
                 startActivity(intent);
@@ -175,23 +149,13 @@ public class CountdownActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-        }
+    }
 
     public void setUpCountdown() {
-       /* Database db = MainFestivalActivity.getDb();
-        Cursor res = db.selectAllFromTable("CountdownTable");
-        res.moveToFirst();
-        int index = res.getColumnIndex("festivalDate");*/
-
-        if (getTimeToFestival() != 0) {
-            /*Calendar today = Calendar.getInstance();
-            Calendar festivalDate = Calendar.getInstance();
-            festivalDate.setTimeInMillis(res.getLong(index));
-            Calendar timeNow = Calendar.getInstance();
-            long offset = timeNow.get(Calendar.ZONE_OFFSET) + timeNow.get(Calendar.DST_OFFSET);
-            long timeSinceMidnight = (timeNow.getTimeInMillis() + offset) % (24 * 60 * 60 * 1000);
-            long leftTime = festivalDate.getTimeInMillis() - (today.getTimeInMillis()+timeSinceMidnight);*/
-            long leftTime = getTimeToFestival();
+        if (getFestivalDate() != 0) {
+            long festivalDate = getFestivalDate();
+            Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"));
+            long leftTime = festivalDate - today.getTimeInMillis();
 
             CountDownTimer countDownTimer = new CountDownTimer(leftTime, 1000) { //1 Sekunde
                 @Override
@@ -201,29 +165,33 @@ public class CountdownActivity extends AppCompatActivity
                     int mins = (int) (millisUntilFinished / (1000 * 60) % 60);
                     int secs = (int) (millisUntilFinished / (1000) % 60);
 
-                    countdownView.setText((String.format("%d", days))+" "+"Tage");
+                    countdownView.setText((String.format("%d", days)) + " " + "Tage");
                     timerView.setText(String.format("%02d:%02d:%02d", hours, mins, secs));
 
 
-                    Intent widget = new Intent(getApplicationContext(),CountdownWidgetActivity.class);
+                    Intent widget = new Intent(getApplicationContext(), CountdownWidgetActivity.class);
                     widget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
-                    widget.putExtra("countdownWidget", "Nur noch "+ (String.format("%d", days))+" Tage bis zum Festival");
+                    widget.putExtra("countdownWidget", "Nur noch " + (String.format("%d", days)) + " Tage bis zum Festival");
                     sendBroadcast(widget);
                 }
+
                 @Override
                 public void onFinish() {
 
                 }
             }.start();
         }
-        }
+    }
 
 
-    private long getTimeToFestival(){
+    private long getFestivalDate() {
+        long daysLeft = 0;
         Database db = MainFestivalActivity.getDb();
         Cursor res = db.selectAllFromTable("CountdownTable");
         res.moveToFirst();
-        long daysLeft = res.getLong(res.getColumnIndex("festivalDaysLeft"));
+        if (res.getCount() != 0) {
+            daysLeft = res.getLong(res.getColumnIndex("festivalDate"));
+        }
         return daysLeft;
     }
 

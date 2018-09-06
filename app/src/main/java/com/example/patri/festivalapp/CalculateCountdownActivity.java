@@ -43,18 +43,26 @@ public class CalculateCountdownActivity extends Activity {
                 if (enterYear.getText().toString().isEmpty() || enterMonth.getText().toString().isEmpty() || enterDay.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Du hast nicht alles korrekt ausgefüllt",Toast.LENGTH_LONG).show();
                     return;
-                }
-                if (getFestivalYear()<2017){
+                }else if (getFestivalYear()<2017){
                     Toast.makeText(getApplicationContext(),"Du musst das Jahr korrekt und vollständig ausfüllen",Toast.LENGTH_LONG).show();
                     return;
-                }
-                if (getFestivalDay()>31){
+                } else if (getFestivalDay()>31){
                     Toast.makeText(getApplicationContext(),"Du musst den Tag korrekt ausfüllen",Toast.LENGTH_LONG).show();
                     return;
-                }
-                if (getFestivalMonth()>12){
+                }else if (getFestivalMonth()>12){
                     Toast.makeText(getApplicationContext(),"Du musst den Monat korrekt ausfüllen",Toast.LENGTH_LONG).show();
                     return;
+                } else{
+                    Database db = MainFestivalActivity.getDb();
+                    Calendar date = Calendar.getInstance();
+                    date.set(Calendar.YEAR, getFestivalYear());
+                    date.set(Calendar.MONTH, getFestivalMonth()-1);
+                    date.set(Calendar.DAY_OF_MONTH, getFestivalDay());
+                    date.set(Calendar.HOUR, 0);
+                    date.set(Calendar.MINUTE, 0);
+                    date.set(Calendar.SECOND, 0);
+
+                    db.insertIntoTable("CountdownTable", date);
                 }
 
                  setCountdown();
@@ -130,8 +138,8 @@ public class CalculateCountdownActivity extends Activity {
     }
 
     public void setCountdown() {
+
         Intent intentCountdown = new Intent(getApplicationContext(), CountdownActivity.class);
-        //intentCountdown.putExtra("countingDays", getRemainingDays());
         this.finish();
         startActivity(intentCountdown);
     }
