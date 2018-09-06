@@ -23,13 +23,15 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class PacklistActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ImageButton packlist_task_button;
     EditText packlist_taskname;
-    ListView lv ;
+    ListView lv;
     ArrayList<PackingListItemDB> packing_list;
     TodoListAdapter adapter;
 
@@ -58,9 +60,11 @@ public class PacklistActivity extends AppCompatActivity
         packlist_taskname = (EditText) findViewById(R.id.packlist_taskname);
         packlist_task_button = (ImageButton) findViewById(R.id.packlist_task_button);
         packing_list = new ArrayList<PackingListItemDB>();
-        lv = (ListView)findViewById(R.id.packlist_List_view);
-       // adapter = new TodoListAdapter(packing_list, this);
+        lv = (ListView) findViewById(R.id.packlist_List_view);
+        adapter = new TodoListAdapter(packing_list, this);
         lv.setAdapter(adapter);
+
+        readDatabase();
 
         packlist_task_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +72,8 @@ public class PacklistActivity extends AppCompatActivity
                 saveOnButton();
             }
         });
+
+
     }
 
     @Override
@@ -78,34 +84,36 @@ public class PacklistActivity extends AppCompatActivity
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        onTouchEvent( event);
+        onTouchEvent(event);
         return super.dispatchTouchEvent(event);
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
         this.gestureObjectCOSTACTIVITY.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
 
-    class LearnGesture extends GestureDetector.SimpleOnGestureListener{
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener {
 
-        int minStep=500;
+        int minStep = 500;
 
         @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY){
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float vX, float vY) {
 
-           if(e2.getX() < (e1.getX() - minStep)){
+            if (e2.getX() < (e1.getX() - minStep)) {
                 Intent intent = new Intent(PacklistActivity.this, MainFestivalActivity.class);
                 finish();
                 startActivity(intent);
-           }
+            }
             return true;
         }
     }
 
     @Override
     public void onBackPressed() {
+        insertDatabase();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -165,44 +173,60 @@ public class PacklistActivity extends AppCompatActivity
         return true;
     }
 
-    private void saveOnButton(){
+    private void saveOnButton() {
         PackingListItemDB item = new PackingListItemDB();
-        item.setName(packlist_taskname.getText().toString());
-        item.setChecked(true);
+        if (packlist_taskname.getText().length() > 0) {
+            item.setName(packlist_taskname.getText().toString());
+            item.setChecked(false);
 
-       // ListView lv = (ListView) findViewById(R.id.packlist_List_view);
-
-        Database db = MainFestivalActivity.getDb();
-        db.insertIntoTable("PackingList", item);
-       /* if (packlist_taskname.getText().length() > 0) {
-            packing_list.add(new PackingListItemDB(packlist_taskname.getText().toString(), false));
+            packing_list.add(item);
             adapter.notifyDataSetChanged();
-
-        }*/
+        }
 
         packlist_taskname.setText("");
     }
 
-    private void readDatabase(){
+    private void insertDatabase() {
+        Database db = MainFestivalActivity.getDb();
+        db.dropTable("PackingList");
+        db.createTable("PackingList");
+
+        for (PackingListItemDB item : packing_list) {
+            Log.e("INSERT", item.getName()+" "+item.isChecked() );
+            db.insertIntoTable("PackingList", item);
+        }
+    }
+
+    private void readDatabase() {
         Database db = MainFestivalActivity.getDb();
         Cursor res = db.selectAllFromTable("PackingList");
 
         res.moveToFirst();
 
-        while(!res.isAfterLast())
-        {
+        while (!res.isAfterLast()) {
             PackingListItemDB item = new PackingListItemDB();
             String name = res.getString(res.getColumnIndex("Name"));
             boolean isChecked = false;
-            if(res.getInt(res.getColumnIndex("IsChecked")) == 1){
+            if (res.getInt(res.getColumnIndex("IsChecked")) == 1) {
                 isChecked = true;
             }
 
             item.setName(name);
             item.setChecked(isChecked);
 
+            Log.e("READ", item.getName()+" "+item.isChecked() );
+
+            packing_list.add(item);
+
             res.moveToNext();
         }
+
+        for(PackingListItemDB item :packing_list)
+        {
+            Log.e("READ-ITEM", item.getName());
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
 }

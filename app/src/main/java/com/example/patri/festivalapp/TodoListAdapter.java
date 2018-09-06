@@ -2,38 +2,36 @@ package com.example.patri.festivalapp;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class TodoListAdapter extends BaseAdapter {
+    private final ArrayList<PackingListItemDB> packingList;
     private final LayoutInflater inflator;
-    PackingListItemDB packing_list;
+    private PackingListItemDB packingItem;
 
 
-    public TodoListAdapter(PackingListItemDB packingListItemDB, Context context) {
-        this.packing_list = packingListItemDB;
-
-
+    public TodoListAdapter(ArrayList<PackingListItemDB> packingList, Context context) {
+        this.packingList = packingList;
         inflator = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-
-       return 0;
+        return packingList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return packingList.get(position);
     }
 
     @Override
@@ -55,24 +53,29 @@ public class TodoListAdapter extends BaseAdapter {
         } else {
             holder = (TodoListAdapter.ViewHolder) convertView.getTag();
         }
-        packing_list = (PackingListItemDB) getItem(position);
+        packingItem = (PackingListItemDB) getItem(position);
+        Log.e("Item", packingItem.getName());
         holder.done_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                packing_list.setChecked(isChecked);
+                packingItem.setChecked(isChecked);
+
+                Log.e("Position", String.valueOf(position));
+                Log.e("Change", packingItem.getName() +" "+ packingItem.isChecked());
 
                 if (isChecked) {
                     holder.task_view.setPaintFlags(holder.task_view.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                }else{
+                } else {
                     holder.task_view.setPaintFlags(0);
                 }
             }
         });
 
-        holder.task_view.setText(packing_list.getName());
-        holder.done_box.setChecked(packing_list.isChecked());
+        holder.task_view.setText(packingItem.getName());
+        holder.done_box.setChecked(packingItem.isChecked());
 
         return convertView;
     }
+
     static class ViewHolder {
         TextView task_view;
         CheckBox done_box;

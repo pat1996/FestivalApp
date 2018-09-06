@@ -7,7 +7,9 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainFestivalActivity"
-    tools:showIn="@layout/app_bar_main_festival">
+    tools:showIn="@layout/app_bar_main_festival"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,7 +50,7 @@
 
     <ListView
         android:id="@+id/packlist_List_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

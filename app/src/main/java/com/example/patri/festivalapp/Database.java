@@ -38,8 +38,7 @@ public class Database extends SQLiteOpenHelper {
             "('Ticket', 0)," +
             "('Dosenravioli', 0)," +
             "('Grillfleisch', 0)," +
-            "('Zigaretten', 0),"+
-            "('Dosenravioli', 0)," +
+            "('Zigaretten', 0)," +
             "('Kekse', 0)," +
             "('Muesli', 0)," +
             "('Milchbrötchen', 0)," +
@@ -86,8 +85,7 @@ public class Database extends SQLiteOpenHelper {
             "('Pavilion', 0)," +
             "('Gaskocher', 0)," +
             "('Grill', 0)," +
-            "('Grillkohle', 0)" ;
-
+            "('Grillkohle', 0)";
 
     private static final String PACKINGLIST_DROP = "DROP TABLE IF EXISTS PackingList;";
 
@@ -125,18 +123,34 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void createTable(String table) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        switch (table) {
+            case "Cost":
+                db.execSQL(COST_CREATE);
+                break;
+            case "PackingList":
+                db.execSQL(PACKINGLIST_CREATE);
+                break;
+            case "CountdownTable":
+                db.execSQL(COUNTDOWN_CREATE);
+                break;
+            case "WeatherTable":
+                db.execSQL(WEATHER_CREATE);
+                break;
+        }
+    }
+
     public void insertIntoTable(String table, Object object) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues objectTable = convertObjectIntoContentValues(object);
 
         //Damit immer nur ein Datum bzw. eine Stadt für das nächste Festival in der Tabelle steht
-        if(table.equals("CountdownTable"))
-        {
+        if (table.equals("CountdownTable")) {
             db.execSQL(COUNTDOWN_DROP);
             db.execSQL(COUNTDOWN_CREATE);
         }
-        if(table.equals("WeatherTable"))
-        {
+        if (table.equals("WeatherTable")) {
             db.execSQL(WEATHER_DROP);
             db.execSQL(WEATHER_CREATE);
         }
@@ -168,6 +182,24 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery(sql, null);
         return res;
+    }
+
+    public void dropTable(String table) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        switch (table) {
+            case "Cost":
+                db.execSQL(COST_DROP);
+                break;
+            case "PackingList":
+                db.execSQL(PACKINGLIST_DROP);
+                break;
+            case "CountdownTable":
+                db.execSQL(COUNTDOWN_DROP);
+                break;
+            case "WeatherTable":
+                db.execSQL(WEATHER_DROP);
+                break;
+        }
     }
 
     private ContentValues convertObjectIntoContentValues(Object object) {
