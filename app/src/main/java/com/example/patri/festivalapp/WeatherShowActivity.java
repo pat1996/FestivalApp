@@ -32,8 +32,6 @@ public class WeatherShowActivity extends Activity {
     private GestureDetectorCompat gestureObject;
     private TextView weatherDate, weatherCity, weatherDegree, weatherDescription;
 
-    private static final String APP_ID = "a054669249150807aa88528372b0e6b1";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +46,6 @@ public class WeatherShowActivity extends Activity {
         String url = getUrl();
 
         new DownloadWeather(weatherDate, weatherCity, weatherDegree, weatherDescription).execute(url);
-
     }
 
     class DownloadWeather extends AsyncTask<String, Void, String[]> {
@@ -67,6 +64,7 @@ public class WeatherShowActivity extends Activity {
             super.onPreExecute();
         }
 
+        // doInBackgroundMethod to get and save the weather data
         @Override
         protected String[] doInBackground(String... strings) {
             String weather;
@@ -118,6 +116,8 @@ public class WeatherShowActivity extends Activity {
             return data;
         }
 
+
+        // onPostExecute to assign the information to the correct TextView
         @Override
         protected void onPostExecute(String[] data) {
             weatherDegree.setText(data[0] + "°");
@@ -127,6 +127,7 @@ public class WeatherShowActivity extends Activity {
         }
     }
 
+    // Method tho get the URL
     private String getUrl() {
         String url = "https://api.openweathermap.org/data/2.5/weather?q=%CITY%&appid=a054669249150807aa88528372b0e6b1";
 
@@ -140,6 +141,8 @@ public class WeatherShowActivity extends Activity {
         return url;
     }
 
+    // The following override method and the class LearnGesture are needed for the swipe functionality
+    // So the user can go back to the MainFestivalActivity only with a swipe to the left
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.gestureObject.onTouchEvent(event);

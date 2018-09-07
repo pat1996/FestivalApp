@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/countdown_viewWidget"
-        android:paddingTop="100dp"
+        android:paddingTop="80dp"
         android:textAllCaps="true"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"/>
