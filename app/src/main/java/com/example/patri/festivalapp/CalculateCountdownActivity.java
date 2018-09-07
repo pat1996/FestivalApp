@@ -37,7 +37,7 @@ public class CalculateCountdownActivity extends Activity {
         startCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // makes sure everything is filled in correctly
+                // Makes sure everything is filled in correctly
                 if (enterYear.getText().toString().isEmpty() || enterMonth.getText().toString().isEmpty() || enterDay.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Du hast nicht alles korrekt ausgefüllt",Toast.LENGTH_LONG).show();
                     return;
@@ -67,7 +67,7 @@ public class CalculateCountdownActivity extends Activity {
         });
     }
 
-    //Getter und Setter
+    // Getter und Setter
     public int getFestivalDay() {
         int day = Integer.parseInt(enterDay.getText().toString());
         return day;
@@ -83,7 +83,7 @@ public class CalculateCountdownActivity extends Activity {
         return year;
     }
 
-    //Build up a date-object out of the informations of the editTexts
+    // Build up a date-object out of the informations of the editTexts
     private Calendar getFestivalDate (){
         Calendar festival = Calendar.getInstance();
         festival.set(Calendar.YEAR, getFestivalYear());
@@ -92,7 +92,8 @@ public class CalculateCountdownActivity extends Activity {
         return festival;
     }
 
-   private long getRemainingDays() {  //calculates the remaining days / the remaining time in milliseconds
+    // Calculates the remaining days / the remaining time in milliseconds
+   private long getRemainingDays() {
        Calendar today= Calendar.getInstance();
        Calendar festivalDate = getFestivalDate();
        Calendar timeNow = Calendar.getInstance();
@@ -105,9 +106,8 @@ public class CalculateCountdownActivity extends Activity {
        return remainingDays;
    }
 
-    //starts the countdownActivity
+    // Starts the countdownActivity
     public void setCountdown() {
-
         Intent intentCountdown = new Intent(getApplicationContext(), CountdownActivity.class);
         this.finish();
         startActivity(intentCountdown);
