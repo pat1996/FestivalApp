@@ -162,7 +162,6 @@ public class PacklistActivity extends AppCompatActivity
             Intent i = new Intent(this, CostActivity.class);
             this.finish();
             startActivity(i);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -189,6 +188,7 @@ public class PacklistActivity extends AppCompatActivity
         db.createTable("PackingList");
 
         for (PackingListItemDB item : packing_list) {
+            Log.e("INSERT", item.getName()+" "+item.isChecked() );
             db.insertIntoTable("PackingList", item);
         }
     }
@@ -206,16 +206,19 @@ public class PacklistActivity extends AppCompatActivity
             if (res.getInt(res.getColumnIndex("IsChecked")) == 1) {
                 isChecked = true;
             }
-
             item.setName(name);
             item.setChecked(isChecked);
+
+            Log.e("READ", item.getName()+" "+item.isChecked() );
 
             packing_list.add(item);
 
             res.moveToNext();
         }
 
+        for(PackingListItemDB item :packing_list) {
+            Log.e("READ-ITEM", item.getName());
+        }
         adapter.notifyDataSetChanged();
     }
-
 }

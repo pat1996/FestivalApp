@@ -22,7 +22,6 @@ public class CalculateCountdownActivity extends Activity {
     private EditText enterDay, enterMonth, enterYear;
     private Button startCountdown;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +35,9 @@ public class CalculateCountdownActivity extends Activity {
         enterYear = (EditText) findViewById(R.id.year_edit);
 
         startCountdown.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // makes sure everything is filled in correctly
+                // Makes sure everything is filled in correctly
                 if (enterYear.getText().toString().isEmpty() || enterMonth.getText().toString().isEmpty() || enterDay.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Du hast nicht alles korrekt ausgefüllt",Toast.LENGTH_LONG).show();
                     return;
@@ -64,15 +62,12 @@ public class CalculateCountdownActivity extends Activity {
 
                     db.insertIntoTable("CountdownTable", date);
                 }
-
                  setCountdown();
             }
         });
-
     }
 
-    //Getter und Setter
-
+    // Getter und Setter
     public int getFestivalDay() {
         int day = Integer.parseInt(enterDay.getText().toString());
         return day;
@@ -87,17 +82,18 @@ public class CalculateCountdownActivity extends Activity {
         int year = Integer.parseInt(enterYear.getText().toString());
         return year;
     }
-        //Build up a date-object out of the informations of the editTexts
+
+    // Build up a date-object out of the informations of the editTexts
     private Calendar getFestivalDate (){
         Calendar festival = Calendar.getInstance();
         festival.set(Calendar.YEAR, getFestivalYear());
         festival.set(Calendar.MONTH, getFestivalMonth()-1);
         festival.set(Calendar.DATE, getFestivalDay()+1); //+1 so the countdown does not show 0 on the last day before the festival
         return festival;
-
     }
 
-   private long getRemainingDays() {  //calculates the remaining days / the remaining time in milliseconds
+    // Calculates the remaining days / the remaining time in milliseconds
+   private long getRemainingDays() {
        Calendar today= Calendar.getInstance();
        Calendar festivalDate = getFestivalDate();
        Calendar timeNow = Calendar.getInstance();
@@ -110,14 +106,15 @@ public class CalculateCountdownActivity extends Activity {
        return remainingDays;
    }
 
-
-    public void setCountdown() { //starts the countdownActivity
-
+    // Starts the countdownActivity
+    public void setCountdown() {
         Intent intentCountdown = new Intent(getApplicationContext(), CountdownActivity.class);
         this.finish();
         startActivity(intentCountdown);
     }
 
+    // The following override method and the class LearnGesture are needed for the swipe functionality
+    // So the user can go back to the MainFestivalActivity only with a swipe to the left
     @Override
     public boolean onTouchEvent(MotionEvent event){
         this.gestureObject.onTouchEvent(event);
@@ -139,7 +136,5 @@ public class CalculateCountdownActivity extends Activity {
             return true;
         }
     }
-
-
 }
 

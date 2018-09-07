@@ -8,11 +8,6 @@ public class PackingListItemDB {
     private String name;
     private boolean isChecked;
 
-
-
-
-
-
     public int getId() {
         return id;
     }

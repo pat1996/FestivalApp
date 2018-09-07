@@ -147,6 +147,8 @@ public class WeatherActivity extends AppCompatActivity
         return true;
     }
 
+    // Method to get the weather data of the respective city
+    // Intent to start the WeatherShowActivity with the information about the respective city
     public void editWeather(){
         String cityString = citysearch.getText().toString();
         CityDB city = new CityDB();
