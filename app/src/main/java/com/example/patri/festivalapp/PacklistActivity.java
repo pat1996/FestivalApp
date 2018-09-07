@@ -209,16 +209,11 @@ public class PacklistActivity extends AppCompatActivity
             item.setName(name);
             item.setChecked(isChecked);
 
-            Log.e("READ", item.getName()+" "+item.isChecked() );
-
             packing_list.add(item);
 
             res.moveToNext();
         }
 
-        for(PackingListItemDB item :packing_list) {
-            Log.e("READ-ITEM", item.getName());
-        }
         adapter.notifyDataSetChanged();
     }
 }
