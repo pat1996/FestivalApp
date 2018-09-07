@@ -59,9 +59,6 @@ public class TodoListAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 packingItem.setChecked(isChecked);
 
-                Log.e("Position", String.valueOf(position));
-                Log.e("Change", packingItem.getName() +" "+ packingItem.isChecked());
-
                 if (isChecked) {
                     holder.task_view.setPaintFlags(holder.task_view.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
