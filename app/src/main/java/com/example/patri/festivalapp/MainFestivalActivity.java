@@ -151,7 +151,7 @@ public class MainFestivalActivity extends AppCompatActivity
             createNotification("Erinnerung", "Dein Festival startet bald! Gehe zurück zu deiner FestivalApp und checke es!");
         } else if (id == R.id.nav_cost) {
             startActivity(new Intent(this, CostActivity.class));
-            createNotification("Erinnerung", "Hast du schon alle Kosten eingetragen? Gehe zurück zu deiner FestivalApp und checke es!");
+            createNotification("Erinnerung", "Hast du schon alle Kosten eingetragen? Gehe zurück zu deiner FestivalApp und checke, ob du alles erledigt hast!");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
