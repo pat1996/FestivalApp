@@ -41,4 +41,5 @@
     <string name="city">Stadt</string>
     <string name="celsius">Grad°</string>
     <string name="description">Beschreibung</string>
+    <string name="add_new_task">Sonstiges...</string>
 </resources>
